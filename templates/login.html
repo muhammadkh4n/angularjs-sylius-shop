@@ -1,0 +1,109 @@
+<!-- Page Title -->
+<section class="page-title text-center">
+  <div class="container relative clearfix">
+    <div class="title-holder">
+      <div class="title-text">
+        <h1 class="uppercase">My Account</h1>
+      </div>
+    </div>
+  </div>
+</section> <!-- end page title -->
+
+<!-- login -->
+<section class="section-wrap login-register pt-0 pb-40">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 col-sm-offset-1 mb-40">
+        <div class="login">
+          <form name="loginForm" >
+            <h4 class="uppercase">login</h4>
+            <div class="alert alert-danger" ng-if="ctrl.logMsg" >
+              {{ ctrl.logMsg }}
+            </div>
+            <p class="form-row form-row-wide">
+              <label>username or email
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="email" class="input-text" placeholder="" value="" id="email-field" ng-model="ctrl.login._username" required>
+            </p>
+            <p class="form-row form-row-wide">
+              <label>password
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="password" class="input-text" placeholder="" value="" id="password-field" ng-model="ctrl.login._password" required>
+            </p>
+            <input type="submit" value="Login" class="btn" id="login-btn" ng-disabled="loginForm.$invalid" ng-click="ctrl.loginUser()" >
+            <input type="checkbox" class="input-checkbox" id="remember" name="remember" value="1">
+            <label for="remember" class="checkbox">Remember me</label>
+          </form
+          <a href="#">Lost Password?</a>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="register">
+          <h4 class="uppercase">Register</h4>
+          <div class="alert alert-danger" ng-if="ctrl.msg" >
+            {{ctrl.msg}}
+          </div>
+          <div class="alert alert-success" ng-if="ctrl.regSuccess" >
+            {{ ctrl.regSuccess }}
+          </div>
+          <form name="userForm" novalidate>
+            <p class="form-row form-row-wide">
+              <label>First Name
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="text" class="input-text" placeholder="" value="" ng-model="ctrl.user.firstName" required>
+              <div class="" ng-if="ctrl.errors.firstName" >
+                <p ng-repeat="err in ctrl.errors.firstName" >{{ err }}</p>
+              </div>
+            </p>
+            <p class="form-row form-row-wide">
+              <label>Last Name
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="text" class="input-text" placeholder="" value="" ng-model="ctrl.user.lastName" required>
+              <div class="" ng-if="ctrl.errors.lastName" >
+                <p ng-repeat="err in ctrl.errors.lastName" >{{ err }}</p>
+              </div>
+            </p>
+            <p class="form-row form-row-wide">
+              <label>email
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="email" class="input-text" placeholder="" value="" ng-model="ctrl.user.email" required>
+              <div class="" ng-if="ctrl.errors.email" >
+                <p ng-repeat="err in ctrl.errors.email" >{{ err }}</p>
+              </div>
+            </p>
+            <p class="form-row form-row-wide">
+              <label>
+                Phone Number
+              </label>
+              <input type="number" class="input-text" placeholder="" value="" ng-model="ctrl.user.phoneNumber" >
+            </p>
+            <p class="form-row form-row-wide">
+              <label>password (atleast 4 characters)
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="password" class="input-text" placeholder="" value="" ng-model="ctrl.user.user.plainPassword.first" required minlength="4" >
+              <div class="" ng-if="ctrl.errors.password" >
+                <p ng-repeat="err in ctrl.errors.password" >{{ err }}</p>
+              </div>
+            </p>
+            <p class="form-row form-row-wide">
+              <label>confirm password
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="password" class="input-text" placeholder="" value="" ng-model="ctrl.user.user.plainPassword.second" required minlength="4" >
+              <div class="" ng-if="ctrl.errors.confirmPassword" >
+                <p ng-repeat="err in ctrl.errors.confirmPassword" >{{ err }}</p>
+              </div>
+            </p>
+            <input type="submit" value="Register" class="btn" ng-click="ctrl.registerUser()" ng-disabled="userForm.$invalid" >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> <!-- end login -->
