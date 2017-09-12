@@ -4,8 +4,10 @@
   angular.module('aha', ['ui.router'])
     .run(Runtime);
 
-  Runtime.$inject = ['$state', '$rootScope'];
-  function Runtime($state, $rootScope) {
+  Runtime.$inject = ['$state', '$rootScope', 'Auth'];
+  function Runtime($state, $rootScope, Auth) {
     $rootScope.$state = $state;
+    $rootScope.locale = 'en_US';
+    $rootScope.channel = 'US_WEB';
   }
 })();

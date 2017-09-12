@@ -42,12 +42,6 @@
       <div class="col-sm-5">
         <div class="register">
           <h4 class="uppercase">Register</h4>
-          <div class="alert alert-danger" ng-if="ctrl.msg" >
-            {{ctrl.msg}}
-          </div>
-          <div class="alert alert-success" ng-if="ctrl.regSuccess" >
-            {{ ctrl.regSuccess }}
-          </div>
           <form name="userForm" novalidate>
             <p class="form-row form-row-wide">
               <label>First Name
@@ -100,6 +94,12 @@
                 <p ng-repeat="err in ctrl.errors.confirmPassword" >{{ err }}</p>
               </div>
             </p>
+            <div class="alert alert-danger" ng-if="ctrl.msg" >
+              {{ctrl.msg}}
+            </div>
+            <div class="alert alert-success" ng-if="ctrl.regSuccess" >
+              {{ ctrl.regSuccess }}
+            </div>
             <input type="submit" value="Register" class="btn" ng-click="ctrl.registerUser()" ng-disabled="userForm.$invalid" >
           </form>
         </div>

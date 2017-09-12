@@ -12,6 +12,33 @@
       url: '/',
       templateUrl: 'templates/home.html'
     };
+    var productsBySlug = {
+      name: 'productsBySlug',
+      url: '/category/:slug?page&limit',
+      templateUrl: 'templates/catalog.html',
+      resolve: {
+        products: ['Product', '$stateParams', '$rootScope', function (Product, $stateParams, $rootScope) {
+          $rootScope.$broadcast('loading-start');
+          return Product.getProducts($stateParams.slug, $stateParams.page, $stateParams.limit);
+        }],
+        category: ['Product', '$stateParams', function (Product, $stateParams){
+          return Product.getTaxon($stateParams.slug);
+        }]
+      },
+      controller: 'ProductsController as ctrl'
+    }
+    var productDetails = {
+      name: 'productDetails',
+      url: '/product/:slug',
+      templateUrl: 'templates/product.html',
+      resolve: {
+        product: ['Product', '$stateParams', '$rootScope', function (Product, $stateParams, $rootScope) {
+          $rootScope.$broadcast('loading-start');
+          return Product.getProductDetails($stateParams.slug);
+        }]
+      },
+      controller: 'ProductController as ctrl'
+    }
     var login = {
       name: 'login',
       url: '/login',
@@ -42,6 +69,8 @@
     
     $stateProvider
       .state(home)
+      .state(productsBySlug)
+      .state(productDetails)
       .state(about)
       .state(faq)
       .state(contact)

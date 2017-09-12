@@ -28,7 +28,9 @@
     function loginUser() {
       Auth.loginUser(ctrl.login)
         .then(function (res) {
-          if (Auth.storeAuth(res.data)) $state.go('/');
+          if (Auth.storeAuth(res.data)) {
+            $state.go('home');
+          }
           ctrl.logMsg = null;
           $rootScope.$broadcast('login-success');
         })

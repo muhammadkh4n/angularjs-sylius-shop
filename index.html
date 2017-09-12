@@ -28,11 +28,13 @@
 
   <body class="relative" ng-app="aha">
 
-    <!-- Preloader -->
-    <div class="loader-mask">
-      <div class="loader">
-        <div></div>
-        <div></div>
+    <div ng-controller="LoadingController" >
+      <!-- Preloader -->
+      <div class="loader-mask">
+        <div class="loader">
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
 
@@ -119,7 +121,11 @@
 
     <!-- Components -->
     <script src="js/controllers/header.controller.js" ></script>
+    <script src="js/controllers/sidebar.controller.js" ></script>
     <script src="js/controllers/login.controller.js" ></script>
+    <script src="js/controllers/products.controller.js" ></script>
+    <script src="js/controllers/product.controller.js" ></script>
+    <script src="js/controllers/loading.controller.js" ></script>
 
     <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js" ng-if="$state.current.name === 'contact'"></script>
          <script type="text/javascript" src="js/gmap3.js" ng-if="$state.current.name === 'contact'"></script> -->
