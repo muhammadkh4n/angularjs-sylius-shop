@@ -53,7 +53,6 @@
     this.logout = function () {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
-      $state.go('login');
     }
 
     return auth;

@@ -31,7 +31,7 @@
         .catch(function(err) {
           if (err.data.code === 401) {
             Auth.logout();
-            $state.go('login');
+            $state.go('/login');
           }
         });
     }
@@ -39,7 +39,7 @@
     function logout() {
       Auth.logout();
       console.log("Logged OUT");
-      $state.go('login');
+      $state.go('/login');
     }
 
   }
