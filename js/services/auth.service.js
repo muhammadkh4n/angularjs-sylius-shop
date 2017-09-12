@@ -53,7 +53,7 @@
     this.logout = function () {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
-      return this.getToken() ? false : true;
+      return true;
     }
 
     return auth;
