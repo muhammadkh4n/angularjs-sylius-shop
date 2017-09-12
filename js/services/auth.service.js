@@ -4,8 +4,8 @@
   angular.module('aha')
     .service('Auth', AuthService);
 
-  AuthService.$inject = ['$http', 'APP_CONFIG'];
-  function AuthService($http, CONFIG) {
+  AuthService.$inject = ['$http', 'APP_CONFIG', '$state'];
+  function AuthService($http, CONFIG, $state) {
     var auth = this;
 
     this.loggedIn = function() {
@@ -53,6 +53,7 @@
     this.logout = function () {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
+      $state.go('login');
     }
 
     return auth;
