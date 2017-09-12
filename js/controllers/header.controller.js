@@ -14,6 +14,10 @@
       return Auth.loggedIn();
     };
 
+    $scope.$on('login-success', function (event) {
+      activate();
+    });
+
     activate();
     return;
     ////////////////////////////////
@@ -25,7 +29,10 @@
           console.log(res.data);
         })
         .catch(function(err) {
-          console.log(err.data);
+          if (err.data.code === 401) {
+            Auth.logout();
+            $state.go('login');
+          }
         });
     }
     
@@ -36,9 +43,5 @@
       }
     }
 
-    function getProfile() {
-      Auth.getProfile()
-        
-    }
   }
 })();

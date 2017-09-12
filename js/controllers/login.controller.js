@@ -4,8 +4,8 @@
   angular.module('aha')
     .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['Auth', '$state'];
-  function LoginController(Auth, $state) {
+  LoginController.$inject = ['Auth', '$state', '$rootScope'];
+  function LoginController(Auth, $state, $rootScope) {
     var ctrl = this;
     ctrl.user = {
       subscribedToNewsletter: false,
@@ -30,6 +30,7 @@
         .then(function (res) {
           if (Auth.storeAuth(res.data)) $state.go('home');
           ctrl.logMsg = null;
+          $rootScope.$broadcast('login-success');
         })
         .catch(function (err) {
           console.log(err);
@@ -41,7 +42,7 @@
     function registerUser() {
       Auth.registerUser(ctrl.user)
         .then(function (res) {
-          ctrl.regSuccess = "Registration Successful, You can now log in.";
+          ctrl.regSuccess = "Registration Successful, Please check your email and verify to login.";
           ctrl.msg = null;
           ctrl.errors = null;
         })
