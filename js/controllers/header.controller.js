@@ -37,10 +37,9 @@
     }
     
     function logout() {
-      if (Auth.logout()) {
-        $state.go('login');
-        console.log("Logged OUT");
-      }
+      Auth.logout();
+      console.log("Logged OUT");
+      $state.go('login');
     }
 
   }
