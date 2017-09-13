@@ -8,6 +8,7 @@
   function ProductService($http, Auth, C, $rootScope) {
     var product = {};
     this.headers = {};
+    product.categories = null;
 
     var setHeaders = function () {
       product.headers = {
@@ -41,6 +42,21 @@
           '?locale='+$rootScope.locale+'&channel='+$rootScope.channel, {headers: this.headers}
       );
     };
+
+    product.getCategories = function (callback) {
+      if (product.categories) {
+        callback(product.categories);
+      } else {
+        product.getTaxon('category')
+          .then(function(res) {
+            product.categories = res.data.self.children;
+            callback(product.categories);
+          })
+          .catch(function(err) {
+            console.log(err.data);
+          });
+      }
+    }
 
     return product;
   }

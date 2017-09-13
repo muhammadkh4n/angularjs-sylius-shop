@@ -4,8 +4,8 @@
   angular.module('aha')
     .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['Auth', '$state', '$rootScope'];
-  function LoginController(Auth, $state, $rootScope) {
+  LoginController.$inject = ['Auth', '$state', '$rootScope', 'Cart'];
+  function LoginController(Auth, $state, $rootScope, Cart) {
     var ctrl = this;
     ctrl.user = {
       subscribedToNewsletter: false,

@@ -29,30 +29,7 @@
               <i class="icon arrow_expand"></i>
             </a>
           </div>
-          <div class="gallery-cell">
-            <a href="img/shop/single_img_2.jpg" class="lightbox-img">
-              <img src="img/shop/single_img_2.jpg" alt="" />
-              <i class="icon arrow_expand"></i>
-            </a>
-          </div>
-          <div class="gallery-cell">
-            <a href="img/shop/single_img_3.jpg" class="lightbox-img">
-              <img src="img/shop/single_img_3.jpg" alt="" />
-              <i class="icon arrow_expand"></i>
-            </a>
-          </div>
-          <div class="gallery-cell">
-            <a href="img/shop/single_img_4.jpg" class="lightbox-img">
-              <img src="img/shop/single_img_4.jpg" alt="" />
-              <i class="icon arrow_expand"></i>
-            </a>
-          </div>
-          <div class="gallery-cell">
-            <a href="img/shop/single_img_5.jpg" class="lightbox-img">
-              <img src="img/shop/single_img_5.jpg" alt="" />
-              <i class="icon arrow_expand"></i>
-            </a>
-          </div>
+   
         </div> <!-- end gallery main -->
 
         <div class="gallery-thumbs">
@@ -83,36 +60,35 @@
           <a href="#">3 Reviews</a>
         </span>
         <span class="price">
-          <del>
-            <span>$1550.00</span>
-          </del>
           <ins>
-            <span class="ammount">$1250.00</span>
+            <span class="ammount" ng-if="!variant">
+              select variant to get price
+            </span>
+            <span class="ammount" ng-if="variant">
+              {{ctrl.product.variants[variant].price.current/1000 | currency: ctrl.product.variants[variant].price.currency+' '}}
+            </span>
           </ins>
         </span>
         <p class="product-description">A-ha Shop is a very slick and clean e-commerce template with endless possibilities. Creating an awesome clothes store with this Theme is easy than you can imagine</p>
 
         <div class="select-options">
           <div class="row row-20">
-            <div class="col-sm-6">
-              <select class="color-select">
-                <option value>Select color</option>
-                <option value="white">white</option>
-                <option value="grey">grey</option>
-                <option value="black">black</option>
-                <option value="green">green</option>
-                <option value="blue">blue</option>
-              </select>
-            </div>
+            <!-- <div class="col-sm-6"> -->
+            <!--   <select class="color-select"> -->
+            <!--     <option value>Select color</option> -->
+            <!--     <option value="white">white</option> -->
+            <!--     <option value="grey">grey</option> -->
+            <!--     <option value="black">black</option> -->
+            <!--     <option value="green">green</option> -->
+            <!--     <option value="blue">blue</option> -->
+            <!--   </select> -->
+            <!-- </div> -->
 
             <div class="col-sm-6">
-              <select class="size-options">
-                <option value>Select size</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
+              <select class="size-options" ng-model="variant">
+                <option value selected>Select variant</option>
+                <option ng-repeat="(var, val) in ctrl.product.variants"
+                        value="{{val.code}}">{{val.name}}</option>
               </select>
             </div>
           </div>

@@ -4,12 +4,14 @@
   angular.module('aha')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product'];
-  function HeaderController($scope, Auth, $state, $rootScope, $location, Product) {
+  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product', 'Cart'];
+  function HeaderController($scope, Auth, $state, $rootScope, $location, Product, Cart) {
     var ctrl = this;
     ctrl.logout = logout;
     ctrl.user = null;
     ctrl.categories = null;
+    ctrl.cart = null;
+    ctrl.productsInCart = [];
 
     ctrl.loggedIn = function() {
       return Auth.loggedIn();
@@ -35,8 +37,30 @@
 
     function getProfile() {
       Auth.getProfile()
-        .then(function(res) {
-          ctrl.user = res.data;
+        .then(function(resp) {
+          ctrl.user = resp.data;
+          var cart = Cart.getCartToken();
+          if (cart) {
+            Cart.getCartItems(cart)
+              .then(function(res){
+                console.log("CART", res.data);
+                ctrl.cart = res.data;
+                getProductsInCart(ctrl.cart.items);
+              })
+              .catch(function(err){
+                console.log("CART ERROR", err.data);
+              });
+          } else {
+            Cart.createCart(ctrl.user.email)
+              .then(function(res) {
+                console.log("CART", res.data);
+                Cart.storeCartToken(res.data.tokenValue);
+                ctrl.cart = res.data;
+              })
+              .catch(function(err){
+                console.log("CART ERROR", err.data);
+              });
+          }
           console.log(res.data);
         })
         .catch(function(err) {
@@ -47,15 +71,22 @@
         });
     }
 
+    function getProductsInCart(items) {
+      for (var i = 0; i < items.length; i++) {
+        Product.getProductDetails(items[i].productCode)
+          .then(function(res){
+            ctrl.productsInCart.push(res.data);
+          })
+          .catch(function(err){
+            console.log(err.data);
+          });
+      }
+    }
+
     function getCategories() {
-      Product.getTaxon('category')
-        .then(function(res) {
-          console.log(res.data);
-          ctrl.categories = res.data.self.children;
-        })
-        .catch(function(err) {
-          console.log(err.data);
-        });
+      Product.getCategories(function(categories) {
+        ctrl.categories = categories;
+      });
     }
 
   }

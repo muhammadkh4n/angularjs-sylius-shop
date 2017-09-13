@@ -13,7 +13,13 @@
     //////////////////////
 
     function activate() {
-      ctrl.categories = Product.categories;
+      getCategories();
+    }
+
+    function getCategories() {
+      Product.getCategories(function(categories){
+        ctrl.categories = categories;
+      });
     }
 
   }
