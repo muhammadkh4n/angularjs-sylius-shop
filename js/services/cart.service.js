@@ -25,7 +25,7 @@
 
     self.getCartItems = function(token) {
       setHeaders();
-      return $http.get(C.apiUrl+'/shop-api/carts/'+self.getCartToken(), {headers: self.headers});
+      return $http.get(C.apiUrl+'/shop-api/carts/'+token, {headers: self.headers});
     };
 
     self.addCartItem = function(item) {

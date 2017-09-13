@@ -39,8 +39,8 @@
       Auth.getProfile()
         .then(function(resp) {
           ctrl.user = resp.data;
-          getCartItems();
-          console.log(res.data);
+          getCartItems(ctrl.user.email);
+          console.log(resp.data);
         })
         .catch(function(err) {
           if (err.data && err.data.code === 401) {
@@ -68,17 +68,17 @@
       });
     }
 
-    function getCartItems() {
-      var cart = ctrl.user.email
-      Cart.getCartItems(cart)
+    function getCartItems(token) {
+      Cart.getCartItems(token)
         .then(function(res){
           console.log("CART", res.data);
+          Cart.storeCartToken(res.data.tokenValue);
           ctrl.cart = res.data;
           getProductsInCart(ctrl.cart.items);
         })
         .catch(function(err){
           console.log("CART ERROR", err.data);
-          createCart(cart);
+          createCart(token);
         });
     }
 
