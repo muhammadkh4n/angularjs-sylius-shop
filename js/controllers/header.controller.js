@@ -39,28 +39,7 @@
       Auth.getProfile()
         .then(function(resp) {
           ctrl.user = resp.data;
-          var cart = Cart.getCartToken();
-          if (cart) {
-            Cart.getCartItems(cart)
-              .then(function(res){
-                console.log("CART", res.data);
-                ctrl.cart = res.data;
-                getProductsInCart(ctrl.cart.items);
-              })
-              .catch(function(err){
-                console.log("CART ERROR", err.data);
-              });
-          } else {
-            Cart.createCart(ctrl.user.email)
-              .then(function(res) {
-                console.log("CART", res.data);
-                Cart.storeCartToken(res.data.tokenValue);
-                ctrl.cart = res.data;
-              })
-              .catch(function(err){
-                console.log("CART ERROR", err.data);
-              });
-          }
+          getCartItems();
           console.log(res.data);
         })
         .catch(function(err) {
@@ -87,6 +66,32 @@
       Product.getCategories(function(categories) {
         ctrl.categories = categories;
       });
+    }
+
+    function getCartItems() {
+      var cart = ctrl.user.email
+      Cart.getCartItems(cart)
+        .then(function(res){
+          console.log("CART", res.data);
+          ctrl.cart = res.data;
+          getProductsInCart(ctrl.cart.items);
+        })
+        .catch(function(err){
+          console.log("CART ERROR", err.data);
+          createCart(cart);
+        });
+    }
+
+    function createCart(token) {
+      Cart.createCart(token)
+        .then(function(res) {
+          console.log("CART", res.data);
+          Cart.storeCartToken(res.data.tokenValue);
+          ctrl.cart = res.data;
+        })
+        .catch(function(err){
+          console.log("CART ERROR", err.data);
+        });
     }
 
   }
