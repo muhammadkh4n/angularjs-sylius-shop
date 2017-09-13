@@ -39,6 +39,18 @@
       },
       controller: 'ProductController as ctrl'
     }
+    var cart = {
+      name: 'cart',
+      url: '/cart',
+      templateUrl: 'templates/cart.html',
+      controller: 'CartController as ctrl'
+    }
+    var checkout = {
+      name: 'checkout',
+      url: '/checkout',
+      templateUrl: 'templates/checkout.html',
+      controller: 'CheckoutController as ctrl'
+    }
     var login = {
       name: 'login',
       url: '/login',
@@ -71,6 +83,8 @@
       .state(home)
       .state(productsBySlug)
       .state(productDetails)
+      .state(cart)
+      .state(checkout)
       .state(about)
       .state(faq)
       .state(contact)

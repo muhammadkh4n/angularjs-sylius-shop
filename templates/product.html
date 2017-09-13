@@ -61,11 +61,11 @@
         </span>
         <span class="price">
           <ins>
-            <span class="ammount" ng-if="!variant">
+            <span class="ammount" ng-if="!item.variantCode">
               select variant to get price
             </span>
-            <span class="ammount" ng-if="variant">
-              {{ctrl.product.variants[variant].price.current/1000 | currency: ctrl.product.variants[variant].price.currency+' '}}
+            <span class="ammount" ng-if="item.variantCode">
+              {{ctrl.product.variants[item.variantCode].price.current/1000 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
             </span>
           </ins>
         </span>
@@ -85,19 +85,20 @@
             <!-- </div> -->
 
             <div class="col-sm-6">
-              <select class="size-options" ng-model="variant">
+              <select class="size-options" ng-model="item.variantCode">
                 <option value selected>Select variant</option>
                 <option ng-repeat="(var, val) in ctrl.product.variants"
                         value="{{val.code}}">{{val.name}}</option>
               </select>
             </div>
+            <div ng-if="msg" class="col-xs-12 text-danger">{{msg}}</div>
+            <div ng-if="success" class="col-xs-12 text-success">{{success}}</div>
           </div>
         </div>
 
         <ul class="product-actions clearfix">
-          
           <li>
-            <a href="#" class="btn btn-color btn-lg add-to-cart left"><span>Add to Cart</span></a>
+            <a ng-click="ctrl.addItemToCart()" class="btn btn-color btn-lg add-to-cart left"><span>Add to Cart</span></a>
           </li>                
           <li>
             <div class="icon-add-to-wishlist left">
@@ -106,7 +107,7 @@
           </li> 
           <li>
             <div class="quantity buttons_added">
-              <input type="button" value="-" class="minus" /><input type="number" step="1" min="0" value="1" title="Qty" class="input-text qty text" /><input type="button" value="+" class="plus" />
+              <input type="button" value="-" class="minus" ng-click="ctrl.decQuantity()" /><input type="number" step="1" min="1" value="1" title="Qty" ng-model="item.quantity" class="input-text qty text" /><input type="button" value="+" class="plus" ng-click="ctrl.incQuantity()" />
             </div>
           </li>          
         </ul>

@@ -11,7 +11,7 @@
     ctrl.user = null;
     ctrl.categories = null;
     ctrl.cart = null;
-    ctrl.productsInCart = [];
+    ctrl.deleteCartItem = deleteCartItem;
 
     ctrl.loggedIn = function() {
       return Auth.loggedIn();
@@ -50,18 +50,6 @@
         });
     }
 
-    function getProductsInCart(items) {
-      for (var i = 0; i < items.length; i++) {
-        Product.getProductDetails(items[i].productCode)
-          .then(function(res){
-            ctrl.productsInCart.push(res.data);
-          })
-          .catch(function(err){
-            console.log(err.data);
-          });
-      }
-    }
-
     function getCategories() {
       Product.getCategories(function(categories) {
         ctrl.categories = categories;
@@ -74,11 +62,20 @@
           console.log("CART", res.data);
           Cart.storeCartToken(res.data.tokenValue);
           ctrl.cart = res.data;
-          getProductsInCart(ctrl.cart.items);
         })
         .catch(function(err){
           console.log("CART ERROR", err.data);
           createCart(token);
+        });
+    }
+
+    function deleteCartItem(itemId) {
+      Cart.deleteCartItem(itemId)
+        .then(function(res) {
+          console.log(res.data);
+        })
+        .catch(function(err){
+          console.log(err.data);
         });
     }
 

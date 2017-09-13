@@ -104,29 +104,30 @@
                 <div class="nav-cart right">
                   <div class="nav-cart-outer">
                     <div class="nav-cart-inner">
-                      <a href="#" class="nav-cart-icon">{{$ctrl.cart.totals.items}}</a>
+                      <a href="#" class="nav-cart-icon">{{$ctrl.cart.items.length}}</a>
                     </div>
                   </div>
                   <div class="nav-cart-container">
                     <div class="nav-cart-items">
 
-                      <div class="nav-cart-item clearfix">
+                      <div class="nav-cart-item clearfix"
+                           ng-repeat="item in $ctrl.cart.items">
                         <div class="nav-cart-img">
                           <a href="#">
                             <img src="img/shop/cart_small_1.jpg" alt="">
                           </a>
                         </div>
                         <div class="nav-cart-title">
-                          <a href="#">
-                            Ladies Bag
+                          <a href="productDetails({slug: item.product.code})">
+                            {{item.product.name}} - {{item.product.variants[0].name}}
                           </a>
                           <div class="nav-cart-price">
-                            <span>1 x</span>
-                            <span>1250.00</span>
+                            <span>{{item.quantity}} x</span>
+                            <span>{{item.total/1000 | currency: $ctrl.cart.currency}}</span>
                           </div>
                         </div>
                         <div class="nav-cart-remove">
-                          <a href="#"><i class="icon icon_close"></i></a>
+                          <a ng-click="$ctrl.deleteCartItem(item.id)"><i class="icon icon_close"></i></a>
                         </div>
                       </div>
 
@@ -134,19 +135,19 @@
 
                     <div class="nav-cart-summary">
                       <span>Cart Subtotal</span>
-                      <span class="total-price">{{$ctrl.cart.totals.total | currency: $ctrl.cart.currency+" "}}</span>
+                      <span class="total-price">{{$ctrl.cart.totals.items/1000 | currency: $ctrl.cart.currency+" "}}</span>
                     </div>
 
                     <div class="nav-cart-actions mt-20">
-                      <a href="shop-cart.html" class="btn btn-md btn-dark"><span>View Cart</span></a>
-                      <a href="shop-checkout.html" class="btn btn-md btn-color mt-10"><span>Proceed to Checkout</span></a>
+                      <a ui-sref="cart" class="btn btn-md btn-dark"><span>View Cart</span></a>
+                      <a ui-sref="checkout" class="btn btn-md btn-color mt-10"><span>Proceed to Checkout</span></a>
                     </div>
                   </div>
                 </div>
                 <div class="menu-cart-amount right">
                   <span>
                     Cart /
-                    <a href="#"> {{$ctrl.cart.totals.total | currency: $ctrl.cart.currency+" "}}</a>
+                    <a href="#"> {{$ctrl.cart.totals.total/1000 | currency: $ctrl.cart.currency+" "}}</a>
                   </span>
                 </div>
               </div> <!-- end cart -->
@@ -190,7 +191,7 @@
                       <div class="megamenu-wrap">
                         <div class="row">
 
-                          <div class="col-md-3 megamenu-item" ng-repeat="category in $ctrl.categories">
+                          <div class="col-md-6 megamenu-item" ng-repeat="category in $ctrl.categories">
                             <h6>{{category.name}}</h6>
                             <ul class="menu-list">
                               <li ng-repeat="childCat in category.children"><a ui-sref="productsBySlug({slug: childCat.slug, page: 1, limit: 12})">{{childCat.name}}</a></li>
