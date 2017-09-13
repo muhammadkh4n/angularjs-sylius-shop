@@ -49,7 +49,12 @@
       name: 'checkout',
       url: '/checkout',
       templateUrl: 'templates/checkout.html',
-      controller: 'CheckoutController as ctrl'
+      controller: 'CheckoutController as ctrl',
+      resolve: {
+        checkout: ['Cart', 'Checkout', function(Cart, Checkout){
+          return Checkout.getCheckout();
+        }]
+      }
     }
     var login = {
       name: 'login',

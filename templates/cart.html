@@ -26,63 +26,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="cart_item">
+              <tr class="cart_item" ng-repeat="item in cart.items">
                 <td class="product-thumbnail">
-                  <a href="#">
+                  <a ui-sref="productDetails({slug: item.product.slug})">
                     <img src="img/shop/shop_item_3.jpg" alt="">
                   </a>
                 </td>
                 <td class="product-name">
-                  <a href="#">Fashion Shorts</a>
+                  <a ui-sref="productDetails({slug: item.product.slug})">{{item.product.name}}</a>
                   <ul>
-                    <li>Size: XL</li>
-                    <li>Color: White</li>
+                    <li>Size: {{item.product.variants[0].name}}</li>
                   </ul>
                 </td>
                 <td class="product-price">
-                  <span class="amount">$1250.00</span>
+                  <span class="amount">{{item.product.variants[0].price.current/1000 | currency: item.product.variants[0].price.currency+' '}}</span>
                 </td>
                 <td class="product-quantity">
                   <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus" /><input type="number" step="1" min="0" value="1" title="Qty" class="input-text qty text" /><input type="button" value="+" class="plus">
+                    <input type="button" value="-" class="minus" ng-click="ctrl.decQuantity($index)" /><input type="number" step="1" min="1" title="Qty" ng-model="ctrl.quantities[$index].quantity" class="input-text qty text" /><input type="button" value="+" class="plus" ng-click="ctrl.incQuantity($index)" />
                   </div>
                 </td>
                 <td class="product-subtotal">
-                  <span class="amount">$1250.00</span>
+                  <span class="amount">{{item.total/1000 | currency: cart.currency+' '}}</span>
                 </td>
                 <td class="product-remove">
-                  <a href="#" class="remove" title="Remove this item">
-                    <i class="icon icon_close"></i>
-                  </a>
-                </td>
-              </tr>
-
-              <tr class="cart_item">
-                <td class="product-thumbnail">
-                  <a href="#">
-                    <img src="img/shop/shop_item_7.jpg" alt="">
-                  </a>
-                </td>
-                <td class="product-name">
-                  <a href="#">Business Suit</a>
-                  <ul>
-                    <li>Size: L</li>
-                    <li>Color: Black</li>
-                  </ul>
-                </td>
-                <td class="product-price">
-                  <span class="amount">$240.00</span>
-                </td>
-                <td class="product-quantity">
-                  <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus" /><input type="number" step="1" min="0" value="1" title="Qty" class="input-text qty text" /><input type="button" value="+" class="plus" />
-                  </div>
-                </td>
-                <td class="product-subtotal">
-                  <span class="amount">$240.00</span>
-                </td>
-                <td class="product-remove">
-                  <a href="#" class="remove" title="Remove this item">
+                  <a ng-click="ctrl.deleteCartItem(item.id)" class="remove" title="Remove this item">
                     <i class="icon icon_close"></i>
                   </a>
                 </td>
@@ -101,9 +69,9 @@
 
           <div class="col-md-7">
             <div class="actions right">
-              <input type="submit" name="update_cart" value="Update Cart" class="btn btn-md btn-dark">
+              <input type="button" ng-click="ctrl.updateCartItems()" name="update_cart" value="Update Cart" class="btn btn-md btn-dark">
               <div class="wc-proceed-to-checkout">
-                <a href="checkout.html" class="btn btn-md btn-color"><span>proceed to checkout</span></a>
+                <a ui-sref="checkout" class="btn btn-md btn-color"><span>proceed to checkout</span></a>
               </div>
             </div>
           </div>
@@ -397,19 +365,19 @@
               <tr class="cart-subtotal">
                 <th>Cart Subtotal</th>
                 <td>
-                  <span class="amount">$1490.00</span>
+                  <span class="amount">{{cart.totals.items/1000 | currency: cart.currency+' '}}</span>
                 </td>
               </tr>
               <tr class="shipping">
                 <th>Shipping</th>
                 <td>
-                  <span>Free Shipping</span>
+                  <span>{{cart.totals.shipping/1000 | currency: cart.currency+' '}}</span>
                 </td>
               </tr>
               <tr class="order-total">
                 <th><strong>Order Total</strong></th>
                 <td>
-                  <strong><span class="amount">$1490.00</span></strong>
+                  <strong><span class="amount">{{cart.totals.total/1000 | currency: cart.currency+' '}}</span></strong>
                 </td>
               </tr>
             </tbody>

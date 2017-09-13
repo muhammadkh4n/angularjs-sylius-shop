@@ -62,7 +62,7 @@
         <span class="price">
           <ins>
             <span class="ammount" ng-if="!item.variantCode">
-              select variant to get price
+              {{ctrl.product.variants[ctrl.variantKeys[0]].price.current/1000 | currency: ctrl.product.variants[ctrl.variantKeys[0]].price.currency+' '}}
             </span>
             <span class="ammount" ng-if="item.variantCode">
               {{ctrl.product.variants[item.variantCode].price.current/1000 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
@@ -84,12 +84,17 @@
             <!--   </select> -->
             <!-- </div> -->
 
-            <div class="col-sm-6">
+            <div class="col-sm-6" ng-if="ctrl.variantCount > 1">
               <select class="size-options" ng-model="item.variantCode">
-                <option value selected>Select variant</option>
+                <option value selected>Select Size</option>
                 <option ng-repeat="(var, val) in ctrl.product.variants"
                         value="{{val.code}}">{{val.name}}</option>
               </select>
+            </div>
+            <div class="col-sm-6" ng-if="ctrl.variantCount <= 1">
+              <div class="alert alert-info">
+                <strong>Size:</strong> {{ctrl.product.variants[ctrl.variantKeys[0]].name}}
+              </div>
             </div>
             <div ng-if="msg" class="col-xs-12 text-danger">{{msg}}</div>
             <div ng-if="success" class="col-xs-12 text-success">{{success}}</div>

@@ -21,6 +21,10 @@
       activate();
     });
 
+    $scope.$on('added-to-cart', function (event) {
+      ctrl.cart = Cart.cart;
+    });
+
     activate();
     return;
     ////////////////////////////////
@@ -61,7 +65,8 @@
         .then(function(res){
           console.log("CART", res.data);
           Cart.storeCartToken(res.data.tokenValue);
-          ctrl.cart = res.data;
+          Cart.cart = res.data;
+          ctrl.cart = Cart.cart;
         })
         .catch(function(err){
           console.log("CART ERROR", err.data);
@@ -72,6 +77,13 @@
     function deleteCartItem(itemId) {
       Cart.deleteCartItem(itemId)
         .then(function(res) {
+          var items = Cart.cart.items;
+          for (var i = 0; i < items.length; i++) {
+            if (items[i].id === itemId) {
+              items.splice(i, 1);
+              break;
+            }
+          }
           console.log(res.data);
         })
         .catch(function(err){
@@ -84,7 +96,8 @@
         .then(function(res) {
           console.log("CART", res.data);
           Cart.storeCartToken(res.data.tokenValue);
-          ctrl.cart = res.data;
+          Cart.cart = res.data;
+          ctrl.cart = Cart.cart;
         })
         .catch(function(err){
           console.log("CART ERROR", err.data);

@@ -4,9 +4,10 @@
   angular.module('aha')
     .service('Cart', CartService);
 
-  CartService.$inject = ['$http', '$state', 'Auth', 'Product', '$rootScope', 'APP_CONFIG'];
-  function CartService($http, $state, Auth, Product, $rootScope, C) {
+  CartService.$inject = ['$http', '$q', '$state', 'Auth', 'Product', '$rootScope', 'APP_CONFIG'];
+  function CartService($http, $q, $state, Auth, Product, $rootScope, C) {
     var self = this;
+    self.cart = {};
     
     var setHeaders = function () {
       self.headers = {
@@ -36,6 +37,14 @@
     self.updateCartItem = function(quantity, itemId) {
       setHeaders();
       return $http.put(C.apiUrl+'/shop-api/carts/'+self.getCartToken()+'/'+itemId, quantity, {headers: self.headers});
+    };
+
+    self.updateCartItems = function(items) {
+      var promises = [];
+      angular.forEach(items, function(item){
+        promises.push(self.updateCartItem(item.quantity, item.id));
+      });
+      return $q.all(promises);
     };
 
     self.deleteCartItem = function(itemId) {
