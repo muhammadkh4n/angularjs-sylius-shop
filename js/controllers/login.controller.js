@@ -26,18 +26,21 @@
     ///////////////////////////////////////////
 
     function loginUser() {
+      $rootScope.$broadcast('loading-start');
       Auth.loginUser(ctrl.login)
         .then(function (res) {
           if (Auth.storeAuth(res.data)) {
             $state.go('home');
           }
           ctrl.logMsg = null;
+          $rootScope.$broadcast('loading-end');
           $rootScope.$broadcast('login-success');
         })
         .catch(function (err) {
           console.log(err);
           ctrl.logSuccess = null;
           ctrl.logMsg = err.data.message;
+          $rootScope.$broadcast('loading-end');
         });
     }
     
