@@ -43,6 +43,7 @@
       Auth.getProfile()
         .then(function(resp) {
           ctrl.user = resp.data;
+          Auth.storeUser(resp.data);
           getCartItems(ctrl.user.email);
           console.log(resp.data);
         })
@@ -61,46 +62,34 @@
     }
 
     function getCartItems(token) {
-      Cart.getCartItems(token)
-        .then(function(res){
-          console.log("CART", res.data);
-          Cart.storeCartToken(res.data.tokenValue);
-          Cart.cart = res.data;
-          ctrl.cart = Cart.cart;
-        })
-        .catch(function(err){
-          console.log("CART ERROR", err.data);
-          createCart(token);
-        });
+      Cart.getCart(token, function(err, cart){
+        if (err) {
+          console.log("CART ERROR", err);
+          return;
+        }
+        console.log("CART", cart);
+        ctrl.cart = Cart.cart;
+      });
     }
 
     function deleteCartItem(itemId) {
       Cart.deleteCartItem(itemId)
         .then(function(res) {
+          console.log(Cart.cart.items);
           var items = Cart.cart.items;
+          var totals = Cart.cart.totals;
           for (var i = 0; i < items.length; i++) {
             if (items[i].id === itemId) {
+              totals.items -= items[i].total;
+              totals.total -= items[i].total;
               items.splice(i, 1);
               break;
             }
           }
-          console.log(res.data);
+          console.log("ITEM DELETED", res);
         })
         .catch(function(err){
-          console.log(err.data);
-        });
-    }
-
-    function createCart(token) {
-      Cart.createCart(token)
-        .then(function(res) {
-          console.log("CART", res.data);
-          Cart.storeCartToken(res.data.tokenValue);
-          Cart.cart = res.data;
-          ctrl.cart = Cart.cart;
-        })
-        .catch(function(err){
-          console.log("CART ERROR", err.data);
+          console.log(err);
         });
     }
 

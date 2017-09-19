@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  angular.module('aha', ['ui.router'])
+  angular.module('aha', ['ui.router', 'uiCropper'])
     .run(Runtime);
 
   Runtime.$inject = ['$state', '$rootScope', 'Auth'];

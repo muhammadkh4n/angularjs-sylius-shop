@@ -37,23 +37,28 @@
         'Authorization': 'Bearer '+this.getToken()
       };
       return $http.get(CONFIG.apiUrl+'/shop-api/me', {headers: headers});
-    }
+    };
 
     this.storeAuth = function (auth) {
       localStorage.setItem('token', auth.token);
       localStorage.setItem('refresh_token', auth.refresh_token);
       return this.getToken() ? true : false;
-    }
+    };
 
     this.storeUser = function (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      return localStorage.user ? true : false;
-    }
+    };
+
+    this.getUser = function () {
+      return JSON.parse(localStorage.user);
+    };
 
     this.logout = function () {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
-    }
+      localStorage.removeItem('user');
+      localStorage.removeItem('cart_token');
+    };
 
     return auth;
     ///////////////////

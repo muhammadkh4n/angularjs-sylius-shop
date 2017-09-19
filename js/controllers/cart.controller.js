@@ -34,16 +34,19 @@
       Cart.deleteCartItem(itemId)
         .then(function(res) {
           var items = Cart.cart.items;
+          var totals = Cart.cart.totals;
           for (var i = 0; i < items.length; i++) {
             if (items[i].id === itemId) {
+              totals.items -= items[i].total;
+              totals.total -= items[i].total;
               items.splice(i, 1);
               break;
             }
           }
-          console.log(res.data);
+          $scope.cart = Cart.cart;
         })
         .catch(function(err){
-          console.log(err.data);
+          console.log("DELETE ERROR", err.data);
         });
     }
 
@@ -51,7 +54,8 @@
     function updateCartItems() {
       Cart.updateCartItems(ctrl.quantities)
         .then(function(res){
-          console.log(res);
+          Cart.cart = res[0].data
+          $scope.cart = Cart.cart;
         })
         .catch(function(err){
           console.log(err);
@@ -60,16 +64,15 @@
 
     function getCartItems() {
       $rootScope.$broadcast('loading-start');
-      Cart.getCartItems(Cart.getCartToken())
-        .then(function(res){
-          loadQuantities(res.data.items);
-          $scope.cart = res.data;
-          $rootScope.$broadcast('loading-end');
-        })
-        .catch(function(err){
+      Cart.getCart(Cart.getCartToken(), function (err, cart) {
+        if (err) {
           console.log("CART ERROR", err);
-          $rootScope.$broadcast('loading-end');
-        });
+          return;
+        }
+        loadQuantities(cart.items);
+        $scope.cart = Cart.cart;
+        $rootScope.$broadcast('loading-end');
+      });
     }
 
     function loadQuantities(items) {
