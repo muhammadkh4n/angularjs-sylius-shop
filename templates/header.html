@@ -84,10 +84,16 @@
               <div class="nav-search hidden-sm hidden-xs">
                 <form method="get">
                   <input type="search" class="form-control" placeholder="Search">
+                  <button ng-click="$ctrl.selectFile()" class="camera-btn"><i class="fa fa-camera"></i></button>
                   <button type="submit" class="search-button">
                     <i class="icon icon_search"></i>
                   </button>
+                  <input type="file" name="file"
+                         style="display:none"
+                         accept="'image/*'" ngf-pattern="'image/*'" id="file"
+                         ngf-select="$ctrl.fileSelected($file)" />
                 </form>
+                <img-crop image="$ctrl.file" show="$ctrl.show"></img-crop>
               </div>
 
               <!-- Logo -->
@@ -163,10 +169,16 @@
                 <li id="mobile-search" class="hidden-lg hidden-md">
                   <form method="get" class="mobile-search relative">
                     <input type="search" class="form-control" placeholder="Search...">
+                    <button ng-click="$ctrl.selectFile()" class="camera-btn"><i class="fa fa-camera"></i></button>
                     <button type="submit" class="search-button">
                       <i class="icon icon_search"></i>
                     </button>
+                    <input type="file" name="file"
+                         style="display:none" ngf-capture="'camera'"
+                         accept="'image/*'" ngf-pattern="'image/*'" id="file"
+                         ngf-select="$ctrl.fileSelected($file)" />
                   </form>
+                  <img-crop image="$ctrl.file" show="$ctrl.show"></img-crop>
                 </li>
 
                 <li class="dropdown">

@@ -12,6 +12,8 @@
     ctrl.categories = null;
     ctrl.cart = null;
     ctrl.deleteCartItem = deleteCartItem;
+    ctrl.selectFile = selectFile;
+    ctrl.fileSelected = fileSelected;
 
     ctrl.loggedIn = function() {
       return Auth.loggedIn();
@@ -32,6 +34,7 @@
     function activate() {
       getProfile();
       getCategories();
+      ctrl.show = false;
     }
     
     function logout() {
@@ -59,6 +62,19 @@
       Product.getCategories(function(categories) {
         ctrl.categories = categories;
       });
+    }
+
+    function selectFile() {
+      $("#file").click();
+    }
+
+    function fileSelected(file) {
+      if (!file) {
+        return;
+      }
+      console.log(file);
+      ctrl.file = file;
+      ctrl.show = true;
     }
 
     function getCartItems(token) {

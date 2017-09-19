@@ -1,7 +1,9 @@
-<div class="cropArea">
-  <ui-cropper image="myImage"
+<div class="cropArea" ng-if="$ctrl.show">
+  <button ng-click="$ctrl.close($event)" class="dismiss">x</button>
+  <button class="btn btn-md btn-color" ng-click="$ctrl.cropImage()">Search</button>
+  <ui-cropper image="$ctrl.image"
               area-type="rectangle"
-              result-image="myCroppedImage"
-              live-view="blockingObject">
+              result-image="$ctrl.cropped"
+              live-view="$ctrl.blockingObject">
   </ui-cropper>
 </div>

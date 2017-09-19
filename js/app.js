@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  angular.module('aha', ['ui.router', 'uiCropper'])
+  angular.module('aha', ['ui.router', 'uiCropper', 'ngFileUpload'])
     .run(Runtime);
 
   Runtime.$inject = ['$state', '$rootScope', 'Auth'];
