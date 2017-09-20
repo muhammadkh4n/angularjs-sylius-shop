@@ -11,6 +11,7 @@
     ctrl.decQuantity = decQuantity;
     ctrl.incQuantity = incQuantity;
     ctrl.addItemToCart  = addItemToCart;
+    ctrl.setActiveImage = setActiveImage;
 
     activate();
     return;
@@ -20,6 +21,8 @@
       $rootScope.$broadcast('loading-end');
       console.log('PRODUCT', product.data);
       ctrl.product = product.data;
+      ctrl.activeImageIndex = 0;
+      ctrl.activeImage = ctrl.product.images[0];
       ctrl.variantKeys = Object.keys(ctrl.product.variants);
       ctrl.variantCount = ctrl.variantKeys.length;
       $scope.item = {
@@ -27,6 +30,11 @@
         productCode: ctrl.product.code
       };
       getCategory(product.data.taxons.main);
+    }
+
+    function setActiveImage(index) {
+      ctrl.activeImageIndex = index;
+      ctrl.activeImage = ctrl.product.images[index];
     }
 
     function getCategory(slug) {

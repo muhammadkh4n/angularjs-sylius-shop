@@ -24,8 +24,8 @@
         <div class="flickity flickity-slider-wrap mfp-hover" id="gallery-main">
 
           <div class="gallery-cell">
-            <a href="img/shop/single_img_1.jpg" class="lightbox-img">
-              <img src="img/shop/single_img_1.jpg" alt="" />
+            <a href="{{ctrl.activeImage.originalUrl}}" class="lightbox-img" target="_blank">
+              <img ng-src="{{ctrl.activeImage.thumbnailLargeUrl}}" alt="{{ctrl.product.name}}" />
               <i class="icon arrow_expand"></i>
             </a>
           </div>
@@ -34,20 +34,9 @@
 
         <div class="gallery-thumbs">
 
-          <div class="gallery-cell">
-            <img src="img/shop/single_img_1.jpg" alt="" />
-          </div>
-          <div class="gallery-cell">
-            <img src="img/shop/single_img_2.jpg" alt="" />
-          </div>
-          <div class="gallery-cell">
-            <img src="img/shop/single_img_3.jpg" alt="" />
-          </div>
-          <div class="gallery-cell">
-            <img src="img/shop/single_img_4.jpg" alt="" />
-          </div>
-          <div class="gallery-cell">
-            <img src="img/shop/single_img_5.jpg" alt="" />
+          <div class="gallery-cell" ng-class="{'is-nav-selected': ctrl.activeImageIndex == $index}"
+               ng-repeat="image in ctrl.product.images" ng-click="ctrl.setActiveImage($index)">
+            <img ng-src="{{image.thumbnailSmallUrl}}" alt="{{ctrl.product.name}}" />
           </div>
 
         </div> <!-- end gallery thumbs -->
@@ -69,7 +58,7 @@
             </span>
           </ins>
         </span>
-        <p class="product-description">A-ha Shop is a very slick and clean e-commerce template with endless possibilities. Creating an awesome clothes store with this Theme is easy than you can imagine</p>
+        <p class="product-description">{{ctrl.product.description}}</p>
 
         <div class="select-options">
           <div class="row row-20">

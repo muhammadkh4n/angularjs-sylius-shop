@@ -67,14 +67,18 @@
               <div class="product-item">
                 <div class="product-img">
                   <a ui-sref="productDetails({slug:product.slug})">
-                    <img src="img/shop/shop_item_1.jpg" alt="">
-                    <img src="img/shop/shop_item_1_back.jpg" alt="" class="back-img">
+                    <img ng-if="product.images.length >= 2"
+                         ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
+                    <img ng-if="product.images.length >= 2"
+                         ng-src="{{product.images[1].thumbnailUrl}}" alt="{{product.name}}" class="back-img">
+                    <img ng-if="product.images.length == 1"
+                         ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
                   </a>
                   <div class="product-label">
                     <!-- <span class="sale">sale</span> -->
                   </div>
                   <div class="product-actions">
-                    <a ng-click="ctrl.cropImage('img/shop/shop_item_1.jpg')" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
+                    <a ng-click="ctrl.cropImage(product.images[0].thumbnailUrl)" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
                       <i class="fa fa-camera"></i>
                     </a>
                     <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
