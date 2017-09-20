@@ -29,7 +29,7 @@
               <tr class="cart_item" ng-repeat="item in cart.items">
                 <td class="product-thumbnail">
                   <a ui-sref="productDetails({slug: item.product.slug})">
-                    <img src="{{item.product.images[0].thumbnailSmallUrl}}" alt="{{item.product.name}}">
+                    <img ng-src="{{item.product.images[0].thumbnailSmallUrl}}" alt="{{item.product.name}}">
                   </a>
                 </td>
                 <td class="product-name">
