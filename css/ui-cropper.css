@@ -43,6 +43,10 @@ button.dismiss {
     color: black;
 }
 
+.nav-cart-item .nav-cart-img img {
+    width: 70px;
+}
+
 @media (max-width: 991px) {
     .cropArea {
         width: 100vw;

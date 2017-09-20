@@ -119,8 +119,8 @@
                       <div class="nav-cart-item clearfix"
                            ng-repeat="item in $ctrl.cart.items">
                         <div class="nav-cart-img">
-                          <a href="#">
-                            <img src="img/shop/cart_small_1.jpg" alt="">
+                          <a ui-sref="productDetails({slug: item.product.code})">
+                            <img ng-src="{{item.product.images[0].thumbnailSmallUrl}}" alt="{{item.product.name}}">
                           </a>
                         </div>
                         <div class="nav-cart-title">
