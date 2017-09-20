@@ -51,11 +51,19 @@
           console.log(resp.data);
         })
         .catch(function(err) {
-          if (err.data && err.data.code === 401) {
-            Auth.logout();
-            $state.go('login');
-          }
+          console.log(err.data);
         });
+    }
+
+    function refreshToken() {
+      Auth.refreshToken()
+        .then(function(res){
+          Auth.storeAuth(res.data);
+          getProfile();
+        })
+        .catch(function(err){
+          console.log(err.data);
+        })
     }
 
     function getCategories() {

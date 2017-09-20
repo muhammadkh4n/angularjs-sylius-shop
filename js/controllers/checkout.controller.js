@@ -8,6 +8,11 @@
   function CheckoutController($rootScope, $scope, Auth, Checkout) {
     var ctrl = this;
     ctrl.updateCheckoutState = updateCheckoutState;
+
+
+    $rootScope.$on('added-to-cart', function(){
+      getCheckout(true);
+    });
     
     activate();
     return;

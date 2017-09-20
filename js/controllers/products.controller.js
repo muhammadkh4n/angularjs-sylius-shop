@@ -9,6 +9,8 @@
     var ctrl = this;
     ctrl.cropImage = cropImage;
     ctrl.show = false;
+    ctrl.isSearch = $stateParams.imageId ? true : false;
+    ctrl.imageId = $stateParams.imageId;
 
     activate();
     return;

@@ -26,7 +26,22 @@
         }]
       },
       controller: 'ProductsController as ctrl'
-    }
+    };
+    var productsByImage = {
+      name: 'productsByImage',
+      templateUrl: 'templates/catalog.html',
+      url: '/search-by-image/:imageId?page&limit',
+      controller: 'ProductsController as ctrl',
+      resolve: {
+        products: ['Search', '$stateParams', '$rootScope', function(Search, $stateParams, $rootScope) {
+          $rootScope.$broadcast('loading-start');
+          return Search.getProductsByImage($stateParams.imageId, $stateParams.page, $stateParams.limit);
+        }],
+        category: function() {
+          return {};
+        }
+      }
+    };
     var productDetails = {
       name: 'productDetails',
       url: '/product/:slug',
@@ -82,6 +97,7 @@
     $stateProvider
       .state(home)
       .state(productsBySlug)
+      .state(productsByImage)
       .state(productDetails)
       .state(cart)
       .state(checkout)

@@ -56,6 +56,7 @@
         .then(function(res){
           Cart.cart = res[0].data
           $scope.cart = Cart.cart;
+          $rootScope.$broadcast('added-to-cart');
         })
         .catch(function(err){
           console.log(err);

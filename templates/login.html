@@ -33,7 +33,7 @@
               <input type="password" class="input-text" placeholder="" value="" id="password-field" ng-model="ctrl.login._password" required>
             </p>
             <input type="submit" value="Login" class="btn" id="login-btn" ng-disabled="loginForm.$invalid" ng-click="ctrl.loginUser()" >
-            <input type="checkbox" class="input-checkbox" id="remember" name="remember" value="1">
+            <input type="checkbox" class="input-checkbox" id="remember" name="remember" ng-model="ctrl.remember">
             <label for="remember" class="checkbox">Remember me</label>
           </form
           <a href="#">Lost Password?</a>

@@ -17,6 +17,11 @@
       return token;
     };
 
+    this.getRefreshToken = function() {
+      var token = localStorage.getItem('refresh_token');
+      return token;
+    }
+
     this.registerUser = function (user) {
       var headers = {
         'Content-Type': 'application/json'
@@ -53,11 +58,22 @@
       return JSON.parse(localStorage.user);
     };
 
+    this.refreshToken = function() {
+      var body = {
+        refresh_token: this.getRefreshToken()
+      }
+      return $http.post(CONFIG.apiUrl+'/shop-api/token/refresh', body);
+    };
+
+    this.rememberUser = function(set) {
+      if (!set) {
+        return localStorage.getItem('remember');
+      }
+      localStorage.setItem('remember', true);
+    }
+
     this.logout = function () {
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('cart_token');
+      localStorage.clear();
     };
 
     return auth;

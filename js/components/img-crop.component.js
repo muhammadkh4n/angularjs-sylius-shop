@@ -11,8 +11,8 @@
       controller: ImgCropComponentController
     });
 
-  ImgCropComponentController.$inject = ['Search'];
-  function ImgCropComponentController(Search) {
+  ImgCropComponentController.$inject = ['Search', '$rootScope', '$state'];
+  function ImgCropComponentController(Search, $rootScope, $state) {
     var $ctrl = this;
     $ctrl.close = close;
 
@@ -41,12 +41,24 @@
     }
 
     function postImage(data) {
+      $rootScope.$broadcast('loading-start');
       Search.searchByImage(data)
         .then(function(res){
-          console.log(res.data);
+          var id = res.data.links.self.match(/by-image\/(\d+)/);
+          if (id && id[1]) {
+            $state.go('productsByImage', {
+              imageId: parseInt(id[1]),
+              limit: 12,
+              page: 1
+            })
+          } else {
+            console.log("NO MATCH FOUND");
+            $rootScope.$broadcast('loading-end');
+          }
         })
         .catch(function(err){
-          console.log(err.data);
+          console.log(err);
+          $rootScope.$broadcast('loading-end');
         });
     }
   }

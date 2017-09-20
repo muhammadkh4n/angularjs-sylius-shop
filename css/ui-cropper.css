@@ -2,7 +2,6 @@ ui-cropper{width:100%;display:block}ui-cropper.fixed-height{height:100%;position
 
 .cropArea {
     background: #E4E4E4;
-    overflow: hidden;
     width: 500px;
     height: 450px;
     position: fixed;
@@ -12,14 +11,19 @@ ui-cropper{width:100%;display:block}ui-cropper.fixed-height{height:100%;position
     transform: translateX(-50%);
 }
 
-.dismiss {
-    position: absolute;
-    z-index: 9999;
-    right: 0;
-    background: transparent;
-    border: none;
-    font-weight: bold;
-    text-shadow: 0 0 1px rgba(10,10,10, 0.3);
+button.dismiss {
+    padding-right: 5px;
+}
+
+.dismiss.close {
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: 700;
+}
+
+.dismiss.close:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
 }
 
 .hidden {

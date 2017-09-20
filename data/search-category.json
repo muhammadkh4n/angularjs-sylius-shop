@@ -1,0 +1,36 @@
+{
+  "self":{
+    "code":"category-men-shoes",
+    "name":"Shoes",
+    "slug":"category-men-shoes",
+    "position":1,
+    "children":[],
+    "images":[]
+  },
+  "parentTree":{
+    "code":"category",
+    "name":"Category",
+    "slug":"category",
+    "position":1,
+    "children":[
+      {
+        "code":"category-men",
+        "name":"Men",
+        "slug":"category-men",
+        "position":1,
+        "children":[
+          {
+            "code":"category-men-shoes",
+            "name":"Shoes",
+            "slug":"category-men-shoes",
+            "position":1,
+            "children":[],
+            "images":[]
+          }
+        ],
+        "images":[]
+      }
+    ],
+    "images":[]
+  }
+}

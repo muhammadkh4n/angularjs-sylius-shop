@@ -32,6 +32,9 @@
           if (Auth.storeAuth(res.data)) {
             $state.go('home');
           }
+          if (ctrl.remember) {
+            Auth.rememberUser(true);
+          }
           ctrl.logMsg = null;
           $rootScope.$broadcast('loading-end');
           $rootScope.$broadcast('login-success');
