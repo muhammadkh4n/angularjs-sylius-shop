@@ -44,17 +44,11 @@
       $rootScope.$broadcast('loading-start');
       Search.searchByImage(data)
         .then(function(res){
-          var id = res.data.links.self.match(/by-image\/(\d+)/);
-          if (id && id[1]) {
-            $state.go('productsByImage', {
-              imageId: parseInt(id[1]),
-              limit: 12,
-              page: 1
-            })
-          } else {
-            console.log("NO MATCH FOUND");
-            $rootScope.$broadcast('loading-end');
-          }
+          $state.go('productsByImage', {
+            imageId: res.data.id,
+            limit: 12,
+            page: 1
+          })
         })
         .catch(function(err){
           console.log(err);
