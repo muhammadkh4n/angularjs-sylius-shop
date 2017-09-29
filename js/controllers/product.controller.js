@@ -21,6 +21,9 @@
       $rootScope.$broadcast('loading-end');
       console.log('PRODUCT', product.data);
       ctrl.product = product.data;
+      ctrl.enName = product.data.name;
+      ctrl.enDesc = product.data.description;
+      ctrl.translated = false;
       ctrl.activeImageIndex = 0;
       ctrl.activeImage = ctrl.product.images[0];
       ctrl.variantKeys = Object.keys(ctrl.product.variants);
@@ -50,10 +53,17 @@
     }
 
     function getTranslation(productId) {
+      if (ctrl.translated) {
+        ctrl.product.name = ctrl.enName;
+        ctrl.product.description = ctrl.enDesc;
+        ctrl.translated = false;
+        return;
+      }
       Product.getProductDetailsTranslation(productId)
         .then(function(res) {
           ctrl.product.name = res.data.name;
           ctrl.product.description = res.data.description;
+          ctrl.translated = true;
         })
         .catch(function(err) {
           console.log("TRANSLATE ERR", err);
