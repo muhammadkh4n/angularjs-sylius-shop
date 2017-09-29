@@ -151,11 +151,14 @@
           <h3 class="widget-title uppercase">Categories</h3>
           <ul class="list-no-dividers">
             <li ng-repeat="category in $ctrl.categories">
-              <a ui-sref="productsBySlug({slug: category.slug, page: 1, limit: ctrl.products.limit})">{{category.name}}</a>
-              <ul>
+              <a class="cat-title bold"
+                 ui-sref="productsBySlug({slug: category.slug, page: 1, limit: ctrl.products.limit})">{{category.name}}</a>
+              <ul class="main-child">
                 <li ng-repeat="cat in category.children">
-                  <a ui-sref="productsBySlug({slug: cat.slug, page: 1, limit: ctrl.products.limit})">{{cat.name}}</a>
-                  <ul>
+                  <a class="cat-child-title" ng-class="{'bold': cat.children.length}"
+                     ui-sref="productsBySlug({slug: cat.slug, page: 1, limit: ctrl.products.limit})">{{cat.name}}</a>
+                  <i ng-click="ctrl.expand($event)" ng-class="{'fa fa-chevron-down': cat.children.length}"></i>
+                  <ul class="list-child">
                     <li ng-repeat="c in cat.children">
                       <a ui-sref="productsBySlug({slug: c.slug, page: 1, limit: ctrl.products.limit})">{{c.name}}</a>
                     </li>

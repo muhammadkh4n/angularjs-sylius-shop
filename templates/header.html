@@ -26,13 +26,11 @@
                 </div>
               </li>
               <li class="language">
-                Language: <a href="#">ENG<i class="fa fa-angle-down"></i></a>
+                Language: <a href="#">{{$ctrl.lang}}<i class="fa fa-angle-down"></i></a>
                 <div class="language-dropdown">
                   <ul>
-                    <li><a href="#">English</a></li>
-                    <li><a href="#">Spanish</a></li>
-                    <li><a href="#">German</a></li>
-                    <li><a href="#">Chinese</a></li>
+                    <li><a href="#" ng-click="$ctrl.setLanguage('EN')">English</a></li>
+                    <li><a href="#" ng-click="$ctrl.setLanguage('CN')">Chinese</a></li>
                   </ul>
                 </div>
               </li>

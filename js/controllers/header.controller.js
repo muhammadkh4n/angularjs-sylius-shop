@@ -14,13 +14,14 @@
     ctrl.deleteCartItem = deleteCartItem;
     ctrl.selectFile = selectFile;
     ctrl.fileSelected = fileSelected;
+    ctrl.setLanguage = setLanguage;
 
     ctrl.loggedIn = function() {
       return Auth.loggedIn();
     };
 
     $scope.$on('login-success', function (event) {
-      activate();
+      getProfile();
     });
 
     $scope.$on('added-to-cart', function (event) {
@@ -32,14 +33,28 @@
     ////////////////////////////////
 
     function activate() {
-      getProfile();
       getCategories();
       ctrl.show = false;
+      ctrl.lang = 'EN';
     }
     
     function logout() {
       Auth.logout();
       $state.go('login');
+    }
+
+    function setLanguage(lang) {
+      if (lang === 'EN') {
+        $rootScope.channel = "US_WEB";
+        $rootScope.locale = "en_US";
+        ctrl.lang = 'EN';
+      } else {
+        $rootScope.channel = "CN_WEB";
+        $rootScope.locale = "zh_CN";
+        ctrl.lang = 'CN';
+      }
+      getCategories();
+      $state.reload();
     }
 
     function getProfile() {

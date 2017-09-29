@@ -59,7 +59,11 @@
           </ins>
         </span>
         <p class="product-description">{{ctrl.product.description}}</p>
-
+        <div class="row">
+          <div class="col-xs-12">
+            <a ng-click="ctrl.getTranslation(ctrl.product.slug)" class="btn btn-dark add-to-cart left"><span>Translate</span></a>
+          </div>
+        </div>
         <div class="select-options">
           <div class="row row-20">
             <!-- <div class="col-sm-6"> -->
@@ -103,13 +107,12 @@
             <div class="quantity buttons_added">
               <input type="button" value="-" class="minus" ng-click="ctrl.decQuantity()" /><input type="number" step="1" min="1" value="1" title="Qty" ng-model="item.quantity" class="input-text qty text" /><input type="button" value="+" class="plus" ng-click="ctrl.incQuantity()" />
             </div>
-          </li>          
+          </li>
         </ul>
 
         <div class="product_meta">
-          <span class="sku">SKU: <a href="#">111763</a></span>
+          <!-- <span class="sku">SKU: <a href="#">111763</a></span> -->
           <span class="posted_in">Category: <a ui-sref="productsBySlug({slug: ctrl.category.self.slug, page: 1, limit: 12})">{{ctrl.category.self.name}}</a></span>
-          <span class="tagged_as">Tags: <a href="#">Elegant</a>, <a href="#">Bag</a></span>
         </div>
 
         <div class="socials-share clearfix">
@@ -123,74 +126,13 @@
         </div>
       </div> <!-- end col product description -->
     </div> <!-- end row -->
-
-    <!-- tabs -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="tabs tabs-bb">
-          <ul class="nav nav-tabs">                                 
-            <li class="active">
-              <a href="#tab-description" data-toggle="tab">Description</a>
-            </li>
-            <li>
-              <a href="#tab-reviews" data-toggle="tab">Reviews</a>
-            </li>                                 
-          </ul> <!-- end tabs -->
-          
-          <!-- tab content -->
-          <div class="tab-content">
-            
-            <div class="tab-pane fade in active" id="tab-description">
-              <p>
-                {{ctrl.product.description}}
-              </p>
-            </div>
-            
-            <div class="tab-pane fade" id="tab-reviews">
-
-              <div class="reviews">
-                <ul class="reviews-list">
-                  <li>
-                    <div class="review-body">
-                      <div class="review-content">
-                        <p class="review-author"><strong>Alexander Samokhin</strong> - May 6, 2014 at 12:48 pm</p>
-                        <div class="rating">
-                          <a href="#"></a>
-                        </div>
-                        <p>This template is so awesome. I didn’t expect so many features inside. E-commerce pages are very useful, you can launch your online store in few seconds. I will rate 5 stars.</p>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li>
-                    <div class="review-body">
-                      <div class="review-content">
-                        <p class="review-author"><strong>Christopher Robins</strong> - May 6, 2014 at 12:48 pm</p>
-                        <div class="rating">
-                          <a href="#"></a>
-                        </div>
-                        <p>This template is so awesome. I didn’t expect so many features inside. E-commerce pages are very useful, you can launch your online store in few seconds. I will rate 5 stars.</p>
-                      </div>
-                    </div>
-                  </li>
-
-                </ul>         
-              </div> <!--  end reviews -->
-            </div>
-            
-          </div> <!-- end tab content -->
-
-        </div>
-      </div> <!-- end tabs -->
-    </div> <!-- end row -->
-
     
   </div> <!-- end container -->
 </section> <!-- end single product -->
 
 
 <!-- Related Items -->
-<section class="section-wrap related-products pt-0">
+<section class="section-wrap related-products pt-0" ng-if="asked">
   <div class="container">
     <div class="row heading-row">
       <div class="col-md-12 text-center">

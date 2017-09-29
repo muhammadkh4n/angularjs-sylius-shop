@@ -11,7 +11,8 @@
     ctrl.show = false;
     ctrl.isSearch = $stateParams.imageId ? true : false;
     ctrl.imageId = $stateParams.imageId;
-
+    ctrl.expand = expand;
+    
     activate();
     return;
     ////////////////////
@@ -30,6 +31,10 @@
       }
     }
 
+    function expand(e) {
+      $(e.target).next(".list-child").toggleClass("show");
+    }
+    
     function cropImage(image) {
       ctrl.image = image;
       $scope.show = true;

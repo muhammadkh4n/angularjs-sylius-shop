@@ -10,8 +10,7 @@
     
     var setHeaders = function () {
       self.headers = {
-        'Content-Type': undefined,
-        'Authorization': 'Bearer '+Auth.getToken()
+        'Content-Type': undefined
       };
     };
 

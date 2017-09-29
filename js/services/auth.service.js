@@ -33,7 +33,7 @@
       var headers = {
         'Content-Type': 'application/json'
       };
-      return $http.post(CONFIG.apiUrl + '/shop-api/login-check', user, {headers: headers});
+      return $http.post(CONFIG.apiUrl + '/shop-api/login/check', user, {headers: headers});
     };
 
     this.getProfile = function () {
@@ -41,7 +41,7 @@
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '+this.getToken()
       };
-      return $http.get(CONFIG.apiUrl+'/shop-api/me', {headers: headers});
+      return $http.get(CONFIG.apiUrl+'/shop-api/account', {headers: headers});
     };
 
     this.storeAuth = function (auth) {

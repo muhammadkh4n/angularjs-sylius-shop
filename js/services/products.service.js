@@ -12,8 +12,7 @@
 
     var setHeaders = function () {
       product.headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+Auth.getToken()
+        'Content-Type': 'application/json'
       };
     };
 
@@ -43,8 +42,13 @@
       );
     };
 
+    product.getProductDetailsTranslation = function (productId) {
+      setHeaders();
+      return $http.get(C.apiUrl+'/shop-api/products/'+productId+'/translation', {headers: this.headers});
+    }
+
     product.getCategories = function (callback) {
-      if (product.categories) {
+      if (product.categories && $rootScope.locale !== 'zh_CN') {
         callback(product.categories);
       } else {
         product.getTaxon('category')
