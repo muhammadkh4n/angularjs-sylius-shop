@@ -64,6 +64,10 @@ button.dismiss {
     font-weight: bold;
 }
 
+.product-description-wrap h1 {
+    text-transform: capitalize;
+}
+
 .main-child .has-children a {
     font-weight: bold;
 }
