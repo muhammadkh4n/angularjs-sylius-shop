@@ -1,16 +1,18 @@
 (function(){
   "use strict";
 
-  angular.module('aha', ['ui.router', 'uiCropper', 'ngFileUpload'])
+  angular.module('aha', ['ui.router', 'uiCropper', 'ngFileUpload', 'ngSanitize'])
     .run(Runtime);
 
   Runtime.$inject = ['$state', '$rootScope', 'Auth', '$trace', '$transitions'];
   function Runtime($state, $rootScope, Auth, $trace, $transitions) {
     $rootScope.$state = $state;
-    $rootScope.locale = 'en_US';
-    $rootScope.channel = 'US_WEB';
     $trace.enable('TRANSITION');
 
+    if (!localStorage.lang) {
+      localStorage.lang = JSON.stringify({ch:'US_WEB', loc: 'en_US', lang: 'EN'});
+    }
+    
     $transitions.onError({}, function(trans) {
       $rootScope.$broadcast('loading-end');
     });

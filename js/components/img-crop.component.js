@@ -45,7 +45,7 @@
       Search.searchByImage(data)
         .then(function(res){
           $state.go('productsByImage', {
-            imageId: res.data.id,
+            slug: res.data.id,
             limit: 12,
             page: 1
           })

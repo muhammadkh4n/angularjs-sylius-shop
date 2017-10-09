@@ -8,6 +8,7 @@
   function CartService($http, $q, $state, Auth, Product, $rootScope, C) {
     var self = this;
     self.cart = null;
+    var lang = JSON.parse(localStorage.lang);
     
     var setHeaders = function () {
       self.headers = {
@@ -18,7 +19,7 @@
     
     self.createCart = function(token) {
       var body = {
-        channel: $rootScope.channel
+        channel: lang.ch
       };
       setHeaders();
       return $http.post(C.apiUrl+'/shop-api/carts/'+token, body, {headers: self.headers});

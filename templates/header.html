@@ -29,8 +29,12 @@
                 Language: <a href="#">{{$ctrl.lang}}<i class="fa fa-angle-down"></i></a>
                 <div class="language-dropdown">
                   <ul>
-                    <li><a href="#" ng-click="$ctrl.setLanguage('EN')">English</a></li>
-                    <li><a href="#" ng-click="$ctrl.setLanguage('CN')">Chinese</a></li>
+                    <li><a href="#"
+                           ng-click="$ctrl.setLanguage({ch:'US_WEB', loc: 'en_US', lang: 'EN'})">
+                        English</a></li>
+                    <li><a href="#"
+                           ng-click="$ctrl.setLanguage({ch:'CN_WEB', loc: 'zh_CN', lang: 'CN'})">
+                        Chinese</a></li>
                   </ul>
                 </div>
               </li>

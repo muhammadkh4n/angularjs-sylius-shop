@@ -30,17 +30,32 @@
     var productsByImage = {
       name: 'productsByImage',
       templateUrl: 'templates/catalog.html',
-      url: '/search-by-image/:imageId?page&limit',
+      url: '/search-by-image/:slug?page&limit',
       controller: 'ProductsController as ctrl',
       resolve: {
         products: ['Search', '$stateParams', '$rootScope', function(Search, $stateParams, $rootScope) {
           $rootScope.$broadcast('loading-start');
-          return Search.getProductsByImage($stateParams.imageId, $stateParams.page, $stateParams.limit);
+          return Search.getProductsByImage($stateParams.slug, $stateParams.page, $stateParams.limit);
         }],
         category: function() {
           return {};
         }
       }
+    };
+    var productsSimilar = {
+      name: 'productsSimilar',
+      url: '/similar-products/:slug?page&limit',
+      templateUrl: 'templates/catalog.html',
+      resolve: {
+        products: ['Product', '$stateParams', '$rootScope', function (Product, $stateParams, $rootScope) {
+          $rootScope.$broadcast('loading-start');
+          return Product.getSimilarProducts($stateParams.slug, $stateParams.page, $stateParams.limit);
+        }],
+        category: ['Product', '$stateParams', function (Product, $stateParams){
+          return {};
+        }]
+      },
+      controller: 'ProductsController as ctrl'
     };
     var productDetails = {
       name: 'productDetails',
@@ -99,6 +114,7 @@
       .state(productsBySlug)
       .state(productsByImage)
       .state(productDetails)
+      .state(productsSimilar)
       .state(cart)
       .state(checkout)
       .state(about)

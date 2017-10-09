@@ -7,6 +7,7 @@
   SearchService.$inject = ['$http', 'Auth',  'APP_CONFIG', '$rootScope'];
   function SearchService($http, Auth, C, $rootScope) {
     var self = this;
+    var lang = JSON.parse(localStorage.lang);
     
     var setHeaders = function () {
       self.headers = {
@@ -27,14 +28,14 @@
 
       var b = new Blob([array], {type: 'application/octet-stream'});
       
-      return $http.post(C.apiUrl+'/shop-api/search/upload?uploadType=simple&channel='+$rootScope.channel, b, {
+      return $http.post(C.apiUrl+'/shop-api/search/upload?uploadType=simple&channel='+lang.ch, b, {
         headers: self.headers
       });
     };
 
     self.getProductsByImage = function(imageId, page, limit) {
       setHeaders();
-      return $http.get(C.apiUrl+'/shop-api/search/by-image/'+imageId+'?channel='+$rootScope.channel+'&page='+page+'&limit='+limit, {headers: self.headers});
+      return $http.get(C.apiUrl+'/shop-api/search/by-image/'+imageId+'?channel='+lang.ch+'&page='+page+'&limit='+limit, {headers: self.headers});
     }
 
     return self;

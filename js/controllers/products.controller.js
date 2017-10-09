@@ -7,12 +7,11 @@
   ProductsController.$inject = ['Auth', '$scope', '$rootScope', '$state', '$stateParams', 'products', 'category'];
   function ProductsController(Auth, $scope, $rootScope, $state, $stateParams, products, category) {
     var ctrl = this;
-    ctrl.cropImage = cropImage;
     ctrl.show = false;
-    ctrl.isSearch = $stateParams.imageId ? true : false;
-    ctrl.imageId = $stateParams.imageId;
+    ctrl.noCategory = $state.current.name !== 'productsBySlug' ? true : false;
     ctrl.expand = expand;
-    
+    ctrl.switchState = switchState;
+
     activate();
     return;
     ////////////////////
@@ -25,7 +24,6 @@
         ctrl.products = products.data;
         ctrl.slug = $stateParams.slug;
         ctrl.category = category.data;
-        ctrl.image = '';
       } else {
         console.log('ERROR', products, category);
       }
@@ -34,10 +32,9 @@
     function expand(e) {
       $(e.target).next(".list-child").toggleClass("show");
     }
-    
-    function cropImage(image) {
-      ctrl.image = image;
-      $scope.show = true;
+
+    function switchState(slug, page, limit) {
+      $state.go($state.current.name, {slug: slug, page: page, limit: limit});
     }
 
   }

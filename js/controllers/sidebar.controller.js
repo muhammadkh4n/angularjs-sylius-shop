@@ -17,9 +17,13 @@
     }
 
     function getCategories() {
-      Product.getCategories(function(categories){
-        ctrl.categories = categories;
-      });
+      Product.getTaxon('category')
+        .then(function(res) {
+          ctrl.categories = res.data.self.children;
+        })
+        .catch(function(err) {
+          console.log(err.data);
+        });
     }
 
   }

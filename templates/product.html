@@ -55,7 +55,7 @@
             </span>
           </ins>
         </span>
-        <p class="product-description">{{ctrl.product.description}}</p>
+        <p class="product-description" ng-bind-html="ctrl.product.description"></p>
         <div class="row">
           <div class="col-xs-12">
             <a ng-click="ctrl.getTranslation(ctrl.product.slug)" class="btn btn-dark add-to-cart left"><span>Translate 翻译翻译</span></a>

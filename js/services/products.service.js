@@ -9,6 +9,7 @@
     var product = {};
     this.headers = {};
     product.categories = null;
+    var lang = JSON.parse(localStorage.lang);
 
     var setHeaders = function () {
       product.headers = {
@@ -18,19 +19,26 @@
 
     product.getTaxons = function () {
       setHeaders();
-      return $http.get(C.apiUrl+'/shop-api/taxons?locale='+$rootScope.locale, {headers:this.headers});
+      return $http.get(C.apiUrl+'/shop-api/taxons?locale='+lang.loc, {headers:this.headers});
     };
     
     product.getTaxon = function (slug) {
       setHeaders();
-      return $http.get(C.apiUrl+'/shop-api/taxons/'+slug+'?locale='+$rootScope.locale, {headers: this.headers});
+      return $http.get(C.apiUrl+'/shop-api/taxons/'+slug+'?locale='+lang.loc, {headers: this.headers});
     };
 
     product.getProducts = function (slug, page, limit) {
       setHeaders();
       return $http.get(
         C.apiUrl+'/shop-api/taxon-products-by-slug/'+slug+
-          '?locale='+$rootScope.locale+'&limit='+limit+'&page='+page+'&channel='+$rootScope.channel, {headers: this.headers}
+          '?locale='+lang.loc+'&limit='+limit+'&page='+page+'&channel='+lang.ch, {headers: this.headers}
+      );
+    };
+
+    product.getSimilarProducts = function(slug, page, limit) {
+      return $http.get(
+        C.apiUrl+'/shop-api/search/by-product/'+slug+
+          '?locale='+lang.loc+'&limit='+limit+'&page='+page+'&channel='+lang.ch, {headers: this.headers}
       );
     };
 
@@ -38,28 +46,13 @@
       setHeaders();
       return $http.get(
         C.apiUrl+'/shop-api/products-by-slug/'+productId+
-          '?locale='+$rootScope.locale+'&channel='+$rootScope.channel, {headers: this.headers}
+          '?locale='+lang.loc+'&channel='+lang.ch, {headers: this.headers}
       );
     };
 
     product.getProductDetailsTranslation = function (productId) {
       setHeaders();
       return $http.get(C.apiUrl+'/shop-api/products/'+productId+'/translation', {headers: this.headers});
-    }
-
-    product.getCategories = function (callback) {
-      if (product.categories && $rootScope.locale !== 'zh_CN') {
-        callback(product.categories);
-      } else {
-        product.getTaxon('category')
-          .then(function(res) {
-            product.categories = res.data.self.children;
-            callback(product.categories);
-          })
-          .catch(function(err) {
-            console.log(err.data);
-          });
-      }
     }
 
     return product;

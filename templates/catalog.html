@@ -1,5 +1,5 @@
 <!-- Breadcrumbs -->
-<div class="container" ng-if="!ctrl.isSearch">
+<div class="container" ng-if="!ctrl.noCategory">
   <ol class="breadcrumb">
     <li>
       <a ui-sref="home">Home</a>
@@ -13,18 +13,16 @@
   </ol> <!-- end breadcrumbs -->
 </div>
 
-<div class="container" ng-if="ctrl.isSearch">
+<div class="container" ng-if="ctrl.noCategory">
   <ol class="breadcrumb">
     <li>
       <a ui-sref="home">Home</a>
     </li>
     <li class="active">
-      Searched by image
+      Searched by similar Images
     </li>
   </ol> <!-- end breadcrumbs -->
 </div>
-
-<img-crop image="ctrl.image" show="show"></img-crop>
 
 <!-- Catalogue -->
 <section class="section-wrap pt-70 pb-40 catalogue">
@@ -38,8 +36,8 @@
           <img src="img/banner.jpg" alt="">
           <div class="hero-holder text-center right-align">
             <div class="hero-lines mb-0">
-              <h1 class="hero-heading white" ng-if="!ctrl.isSearch">{{ctrl.category.self.name}} Collection</h1>
-              <h1 class="hero-heading white" ng-if="ctrl.isSearch">Search results</h1>
+              <h1 class="hero-heading white" ng-if="ctrl.noCategory">{{ctrl.category.self.name}} Collection</h1>
+              <h1 class="hero-heading white" ng-if="!ctrl.noCategory">Search results</h1>
               <h4 class="hero-subheading white uppercase">HOT AND FRESH TRENDS OF THIS YEAR</h4>
             </div>
           </div>
@@ -78,7 +76,7 @@
                     <!-- <span class="sale">sale</span> -->
                   </div>
                   <div class="product-actions">
-                    <a ng-click="ctrl.cropImage(product.images[0].thumbnailUrl)" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
+                    <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: ctrl.products.limit})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
                       <i class="fa fa-camera"></i>
                     </a>
                     <!-- <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"> -->
@@ -110,32 +108,17 @@
         <div class="clear"></div>
 
         <!-- Pagination -->
-        <div class="pagination-wrap" ng-if="!ctrl.isSearch">
+        <div class="pagination-wrap">
           <p class="result-count">Showing: {{ctrl.products.page*ctrl.products.limit-ctrl.products.limit+1}}-{{ctrl.products.page*ctrl.products.limit}} of {{ctrl.products.total}} results</p>
           <nav class="pagination right clear">
-            <a ui-sref="productsBySlug({slug: ctrl.slug, page: 1, limit: ctrl.products.limit})"
+            <a ng-click="ctrl.switchState(ctrl.slug, 1, ctrl.products.limit)"
                ng-if="ctrl.products.page > 1"><i class="fa fa-angle-double-left"></i></a>
-            <a ui-sref="productsBySlug({slug: ctrl.slug, page: ctrl.products.page-1, limit: ctrl.products.limit})"
+            <a ng-click="ctrl.switchState(ctrl.slug, ctrl.products.page-1, ctrl.products.limit)"
                ng-if="ctrl.products.page > 1"><i class="fa fa-angle-left"></i></a>
             <span class="page-numbers current">{{ctrl.products.page}}</span>
-            <a ui-sref="productsBySlug({slug: ctrl.slug, page: ctrl.products.page+1, limit: ctrl.products.limit})"
+            <a ng-click="ctrl.switchState(ctrl.slug, ctrl.products.page+1, ctrl.products.limit)"
                ng-if="ctrl.products.page < ctrl.products.pages"><i class="fa fa-angle-right"></i></a>
-            <a ui-sref="productsBySlug({slug: ctrl.slug, page: ctrl.products.pages, limit: ctrl.products.limit})"
-               ng-if="ctrl.products.page < ctrl.products.pages"><i class="fa fa-angle-double-right"></i></a>
-          </nav>
-        </div>
-
-        <div class="pagination-wrap" ng-if="ctrl.isSearch">
-          <p class="result-count">Showing: {{ctrl.products.page*ctrl.products.limit-ctrl.products.limit+1}}-{{ctrl.products.page*ctrl.products.limit}} of {{ctrl.products.total}} results</p>
-          <nav class="pagination right clear">
-            <a ui-sref="productsByImage({imageId: ctrl.imageId, page: 1, limit: ctrl.products.limit})"
-               ng-if="ctrl.products.page > 1"><i class="fa fa-angle-double-left"></i></a>
-            <a ui-sref="productsByImage({imageId: ctrl.imageId, page: ctrl.products.page-1, limit: ctrl.products.limit})"
-               ng-if="ctrl.products.page > 1"><i class="fa fa-angle-left"></i></a>
-            <span class="page-numbers current">{{ctrl.products.page}}</span>
-            <a ui-sref="productsByImage({imageId: ctrl.imageId, page: ctrl.products.page+1, limit: ctrl.products.limit})"
-               ng-if="ctrl.products.page < ctrl.products.pages"><i class="fa fa-angle-right"></i></a>
-            <a ui-sref="productsByImage({imageId: ctrl.imageId, page: ctrl.products.pages, limit: ctrl.products.limit})"
+            <a ng-click="ctrl.switchState(ctrl.slug, ctrl.products.pages, ctrl.products.limit)"
                ng-if="ctrl.products.page < ctrl.products.pages"><i class="fa fa-angle-double-right"></i></a>
           </nav>
         </div>
@@ -165,115 +148,8 @@
                 </li>
               </ul>
             </li>
-            <!-- <li class="active-cat"> -->
-            <!--   <a href="#">Men</a> -->
-            <!-- </li> -->
           </ul>
         </div>
-
-        <!-- Select size -->
-        <!-- <div class="widget categories"> -->
-        <!--   <h3 class="widget-title uppercase">Select size</h3> -->
-        <!--   <ul class="list-no-dividers"> -->
-        <!--     <li> -->
-        <!--       <a href="#">Large</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Medium</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Small</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">X-Large</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">X-Small</a> -->
-        <!--     </li> -->
-        <!--   </ul> -->
-        <!-- </div> -->
-
-        <!-- Select color -->
-        <!-- <div class="widget categories"> -->
-        <!--   <h3 class="widget-title uppercase">Select color</h3> -->
-        <!--   <ul class="list-no-dividers"> -->
-        <!--     <li> -->
-        <!--       <a href="#">White</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Grey</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Black</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Pink</a> -->
-        <!--     </li> -->
-        <!--     <li> -->
-        <!--       <a href="#">Green</a> -->
-        <!--     </li> -->
-        <!--   </ul> -->
-        <!-- </div> -->
-
-        <!-- <\!-- Filter by Price -\-> -->
-        <!-- <div class="widget filter-by-price clearfix"> -->
-        <!--   <h3 class="widget-title uppercase">Filter by Price</h3> -->
-          
-        <!--   <div id="slider-range"></div> -->
-        <!--   <p> -->
-        <!--     <label for="amount">Price:</label> -->
-        <!--     <input type="text" id="amount" readonly style="border:0;"> -->
-        <!--     <a href="#" class="btn btn-sm btn-dark">Filter</a> -->
-        <!--   </p> -->
-        <!-- </div> -->
-        
-        <!-- Bestsellers -->
-        <!-- <div class="widget bestsellers"> -->
-        <!--   <div class="products-widget"> -->
-        <!--     <h3 class="widget-title uppercase">Bestsellers</h3> -->
-        <!--     <ul class="product-list-widget"> -->
-        <!--       <li class="clearfix"> -->
-        <!--         <a href="shop-single-product.html"> -->
-        <!--           <img src="img/shop/shop_item_9.jpg" alt=""> -->
-        <!--           <span class="product-title">Sleeveless dress</span> -->
-        <!--         </a> -->
-        <!--         <span class="price"> -->
-        <!--           <ins> -->
-        <!--             <span class="ammount">$120.00</span> -->
-        <!--           </ins> -->
-        <!--         </span> -->
-        <!--       </li> -->
-        <!--       <li class="clearfix"> -->
-        <!--         <a href="shop-single-product.html"> -->
-        <!--           <img src="img/shop/shop_item_10.jpg" alt=""> -->
-        <!--           <span class="product-title">Violet Party Dress</span> -->
-        <!--         </a> -->
-        <!--         <span class="price"> -->
-        <!--           <ins> -->
-        <!--             <span class="ammount">$179.00</span> -->
-        <!--           </ins> -->
-        <!--         </span> -->
-        <!--       </li>                -->
-        <!--     </ul> -->
-        <!--   </div> -->
-        <!-- </div> -->
-
-        <!-- <\!-- Tags -\-> -->
-        <!-- <div class="widget tags clearfix"> -->
-        <!--   <h3 class="widget-title uppercase">Tags</h3> -->
-        <!--   <a href="#">Multi-purpose</a> -->
-        <!--   <a href="#">Creative</a> -->
-        <!--   <a href="#">Elegant</a> -->
-        <!--   <a href="#">Clean</a> -->
-        <!--   <a href="#">Modern</a> -->
-        <!--   <a href="#">Responsive</a> -->
-        <!--   <a href="#">E-commerce</a> -->
-        <!--   <a href="#">WordPress</a> -->
-        <!--   <a href="#">Woocommerce</a> -->
-        <!--   <a href="#">Store</a> -->
-        <!--   <a href="#">Business</a> -->
-        <!-- </div> -->
-
       </aside> <!-- end sidebar -->
 
     </div> <!-- end row -->

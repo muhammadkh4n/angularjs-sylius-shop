@@ -4,8 +4,8 @@
   angular.module('aha')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product', 'Cart'];
-  function HeaderController($scope, Auth, $state, $rootScope, $location, Product, Cart) {
+  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product', 'Cart', '$stateParams'];
+  function HeaderController($scope, Auth, $state, $rootScope, $location, Product, Cart, $stateParams) {
     var ctrl = this;
     ctrl.logout = logout;
     ctrl.user = null;
@@ -35,7 +35,7 @@
     function activate() {
       getCategories();
       ctrl.show = false;
-      ctrl.lang = 'EN';
+      ctrl.lang = JSON.parse(localStorage.lang).lang;
     }
     
     function logout() {
@@ -44,17 +44,10 @@
     }
 
     function setLanguage(lang) {
-      if (lang === 'EN') {
-        $rootScope.channel = "US_WEB";
-        $rootScope.locale = "en_US";
-        ctrl.lang = 'EN';
-      } else {
-        $rootScope.channel = "CN_WEB";
-        $rootScope.locale = "zh_CN";
-        ctrl.lang = 'CN';
-      }
-      getCategories();
-      $state.reload();
+      localStorage.lang = JSON.stringify(lang);
+      ctrl.lang = lang.lang;
+      // getCategories();
+      window.location.href = window.origin;
     }
 
     function getProfile() {
@@ -82,9 +75,13 @@
     }
 
     function getCategories() {
-      Product.getCategories(function(categories) {
-        ctrl.categories = categories;
-      });
+      Product.getTaxon('category')
+        .then(function(res) {
+          ctrl.categories = res.data.self.children;
+        })
+        .catch(function(err) {
+          console.log(err.data);
+        });
     }
 
     function selectFile() {
