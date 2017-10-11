@@ -131,7 +131,7 @@
                           </a>
                           <div class="nav-cart-price">
                             <span>{{item.quantity}} x</span>
-                            <span>{{item.total/1000 | currency: $ctrl.cart.currency}}</span>
+                            <span>{{item.total/100 | currency: $ctrl.cart.currency}}</span>
                           </div>
                         </div>
                         <div class="nav-cart-remove">
@@ -143,7 +143,7 @@
 
                     <div class="nav-cart-summary">
                       <span>Cart Subtotal</span>
-                      <span class="total-price">{{$ctrl.cart.totals.items/1000 | currency: $ctrl.cart.currency+" "}}</span>
+                      <span class="total-price">{{$ctrl.cart.totals.items/100 | currency: $ctrl.cart.currency+" "}}</span>
                     </div>
 
                     <div class="nav-cart-actions mt-20">
@@ -155,7 +155,7 @@
                 <div class="menu-cart-amount right">
                   <span>
                     Cart /
-                    <a ui-sref="cart"> {{$ctrl.cart.totals.items/1000 | currency: $ctrl.cart.currency+" "}}</a>
+                    <a ui-sref="cart"> {{$ctrl.cart.totals.items/100 | currency: $ctrl.cart.currency+" "}}</a>
                   </span>
                 </div>
               </div> <!-- end cart -->

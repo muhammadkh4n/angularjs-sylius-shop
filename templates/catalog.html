@@ -93,7 +93,7 @@
                       <span class="ammount"
                             ng-repeat="(var, val) in product.variants">
                         <i ng-if="$index===0">
-                          {{val.price.current/1000 | currency: val.price.currency+" "}}
+                          {{val.price.current/100 | currency: val.price.currency+" "}}
                         </i>
                       </span>
                     </ins>

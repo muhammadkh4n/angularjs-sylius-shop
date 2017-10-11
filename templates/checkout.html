@@ -180,25 +180,25 @@
                   <tr ng-repeat="item in ctrl.checkout.items">
                     <th>{{item.product.name}}<span class="count"> x {{item.quantity}}</span></th>
                     <td>
-                      <span class="amount">{{item.total/1000 | currency: ctrl.checkout.currency+' '}}</span>
+                      <span class="amount">{{item.total/100 | currency: ctrl.checkout.currency+' '}}</span>
                     </td>
                   </tr>
                   <tr class="cart-subtotal">
                     <th>Cart Subtotal</th>
                     <td>
-                      <span class="amount">{{ctrl.checkout.totals.items/1000 | currency: ctrl.checkout.currency+' '}}</span>
+                      <span class="amount">{{ctrl.checkout.totals.items/100 | currency: ctrl.checkout.currency+' '}}</span>
                     </td>
                   </tr>
                   <tr class="shipping">
                     <th>Shipping</th>
                     <td>
-                      <span>{{ctrl.checkout.totals.shipping/1000 | currency: ctrl.checkout.currency+' '}}</span>
+                      <span>{{ctrl.checkout.totals.shipping/100 | currency: ctrl.checkout.currency+' '}}</span>
                     </td>
                   </tr>
                   <tr class="order-total">
                     <th><strong>Order Total</strong></th>
                     <td>
-                      <strong><span class="amount">{{ctrl.checkout.totals.total/1000 | currency: ctrl.checkout.currency+' '}}</span></strong>
+                      <strong><span class="amount">{{ctrl.checkout.totals.total/100 | currency: ctrl.checkout.currency+' '}}</span></strong>
                     </td>
                   </tr>
                 </tbody>

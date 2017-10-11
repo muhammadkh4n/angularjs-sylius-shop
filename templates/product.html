@@ -48,10 +48,10 @@
         <span class="price">
           <ins>
             <span class="ammount" ng-if="!item.variantCode">
-              {{ctrl.product.variants[ctrl.variantKeys[0]].price.current/1000 | currency: ctrl.product.variants[ctrl.variantKeys[0]].price.currency+' '}}
+              {{ctrl.product.variants[ctrl.variantKeys[0]].price.current/100 | currency: ctrl.product.variants[ctrl.variantKeys[0]].price.currency+' '}}
             </span>
             <span class="ammount" ng-if="item.variantCode">
-              {{ctrl.product.variants[item.variantCode].price.current/1000 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
+              {{ctrl.product.variants[item.variantCode].price.current/100 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
             </span>
           </ins>
         </span>

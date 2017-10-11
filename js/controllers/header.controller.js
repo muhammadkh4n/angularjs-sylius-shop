@@ -78,6 +78,7 @@
       Product.getTaxon('category')
         .then(function(res) {
           ctrl.categories = res.data.self.children;
+          console.log(ctrl.categories);
         })
         .catch(function(err) {
           console.log(err.data);

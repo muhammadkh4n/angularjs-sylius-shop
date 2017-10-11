@@ -39,7 +39,7 @@
                   </ul>
                 </td>
                 <td class="product-price">
-                  <span class="amount">{{item.product.variants[0].price.current/1000 | currency: item.product.variants[0].price.currency+' '}}</span>
+                  <span class="amount">{{item.product.variants[0].price.current/100 | currency: item.product.variants[0].price.currency+' '}}</span>
                 </td>
                 <td class="product-quantity">
                   <div class="quantity buttons_added">
@@ -47,7 +47,7 @@
                   </div>
                 </td>
                 <td class="product-subtotal">
-                  <span class="amount">{{item.total/1000 | currency: cart.currency+' '}}</span>
+                  <span class="amount">{{item.total/100 | currency: cart.currency+' '}}</span>
                 </td>
                 <td class="product-remove">
                   <a ng-click="ctrl.deleteCartItem(item.id)" class="remove" title="Remove this item">
@@ -365,19 +365,19 @@
               <tr class="cart-subtotal">
                 <th>Cart Subtotal</th>
                 <td>
-                  <span class="amount">{{cart.totals.items/1000 | currency: cart.currency+' '}}</span>
+                  <span class="amount">{{cart.totals.items/100 | currency: cart.currency+' '}}</span>
                 </td>
               </tr>
               <tr class="shipping">
                 <th>Shipping</th>
                 <td>
-                  <span>{{cart.totals.shipping/1000 | currency: cart.currency+' '}}</span>
+                  <span>{{cart.totals.shipping/100 | currency: cart.currency+' '}}</span>
                 </td>
               </tr>
               <tr class="order-total">
                 <th><strong>Order Total</strong></th>
                 <td>
-                  <strong><span class="amount">{{cart.totals.total/1000 | currency: cart.currency+' '}}</span></strong>
+                  <strong><span class="amount">{{cart.totals.total/100 | currency: cart.currency+' '}}</span></strong>
                 </td>
               </tr>
             </tbody>
