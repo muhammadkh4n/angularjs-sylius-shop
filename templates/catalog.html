@@ -79,14 +79,19 @@
                     <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: ctrl.products.limit})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
                       <i class="fa fa-camera"></i>
                     </a>
-                    <!-- <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"> -->
-                    <!--   <i class="fa fa-heart"></i> -->
-                    <!-- </a> -->
+                    <a href="" ng-if="ctrl.loggedIn"
+                       ng-click="ctrl.addToWishlist(ctrl.getCode(product.variants), $index)" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
+                      <i class="fa fa-heart"></i>
+                    </a>
                   </div>
                 </div>
                 <div class="product-details">
                   <h3>
-                    <a class="product-title" ui-sref="productDetails({slug:product.slug})">{{product.name}}</a>
+                    <a class="product-title"
+                       ui-sref="productDetails({slug:product.slug})">
+                      {{product.brandName}}
+                      {{product.name}}
+                    </a>
                   </h3>
                   <span class="price">
                     <ins>
@@ -98,6 +103,9 @@
                       </span>
                     </ins>
                   </span>
+                  <p class="wish-added-success" ng-if="ctrl.success === $index">
+                    Added to wishlist
+                  </p>
                 </div>
               </div>
             </div>

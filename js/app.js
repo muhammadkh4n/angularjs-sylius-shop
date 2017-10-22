@@ -16,5 +16,9 @@
     $transitions.onError({}, function(trans) {
       $rootScope.$broadcast('loading-end');
     });
+
+    $transitions.onFinish({}, function(trans) {
+      $rootScope.$broadcast('loading-end');
+    });
   }
 })();

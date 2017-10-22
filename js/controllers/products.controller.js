@@ -4,13 +4,16 @@
   angular.module('aha')
     .controller('ProductsController', ProductsController);
 
-  ProductsController.$inject = ['Auth', '$scope', '$rootScope', '$state', '$stateParams', 'products', 'category'];
-  function ProductsController(Auth, $scope, $rootScope, $state, $stateParams, products, category) {
+  ProductsController.$inject = ['Auth', '$scope', '$rootScope', '$state', '$stateParams', 'products', 'category', 'Profile'];
+  function ProductsController(Auth, $scope, $rootScope, $state, $stateParams, products, category, Profile) {
     var ctrl = this;
     ctrl.show = false;
     ctrl.noCategory = $state.current.name !== 'productsBySlug' ? true : false;
     ctrl.expand = expand;
     ctrl.switchState = switchState;
+    ctrl.getCode = getCode;
+    ctrl.addToWishlist = addToWishlist;
+    ctrl.loggedIn = Auth.loggedIn();
 
     activate();
     return;
@@ -29,12 +32,30 @@
       }
     }
 
+    function addToWishlist(variantCode, index) {
+      var variant = {
+        productVariantCode: variantCode
+      };
+      Profile.addToWishlist(variant)
+        .then(function(res) {
+          console.log(res.data);
+          ctrl.success = index;
+        })
+        .catch(function(err) {
+          console.log("WISHLIST ADD ERR", err.data);
+        });
+    }
+
     function expand(e) {
       $(e.target).next(".list-child").toggleClass("show");
     }
 
     function switchState(slug, page, limit) {
       $state.go($state.current.name, {slug: slug, page: page, limit: limit});
+    }
+
+    function getCode(variants) {
+      return Object.keys(variants)[0];
     }
 
   }

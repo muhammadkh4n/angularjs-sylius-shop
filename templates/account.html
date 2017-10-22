@@ -1,0 +1,114 @@
+<!-- Breadcrumbs -->
+<div class="container">
+  <ol class="breadcrumb">
+    <li>
+      <a ui-sref="home">Home</a>
+    </li>
+    <li class="active">
+      My Account
+    </li>
+  </ol> <!-- end breadcrumbs -->
+</div>
+
+<!-- Shortcodes -->
+<section class="section-wrap">
+  <div class="container">
+
+    <div class="row heading-row">
+      <div class="col-xs-12 text-center">
+        <h1>Hello, {{ctrl.account.firstName}} {{ctrl.account.lastName}}</h1>
+      </div>
+    </div>
+
+    <div class="row heading-row">
+      <div class="col-md-12 text-center">
+        <h2 class="heading uppercase"><small>Favorite Brands</small></h2>
+      </div>
+    </div>
+
+    <div class="row row-12 items-grid">
+      <p class="alert alert-warning col-xs-8" ng-if="ctrl.noFavorites">
+        Currently no favorite brands. Please add some
+      </p>
+      <div class="col-xs-12 col-md-8" ng-if="!ctrl.noFavorites">
+        <div class="row">
+          <div class="col-xs-6 col-sm-3 col-lg-2 favorite" ng-repeat="fav in ctrl.favorites">
+            <div class="favorite-brand">
+              <button class="close" ng-click="ctrl.removeFavorite(fav, $index)">
+                <span>x</span>
+              </button>
+              <span>{{fav.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <div class="brands-outer">
+          <input ng-model="search" type="text" placeholder="Search brand" />
+          <ul class="brands">
+            <li ng-repeat="brand in ctrl.brands.self.children | filter: search"
+                ng-click="ctrl.selectBrand(brand, $index)"
+                ng-class="{'selected': ctrl.selected === $index}"
+                class="brand">{{brand.name}}</li>
+          </ul>
+          <a class="btn btn-sm btn-green" ng-click="ctrl.addToFavorites()">
+            <span>Add to Favorites</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row heading-row mt-50">
+      <div class="col-md-12 text-center">
+        <h2 class="heading uppercase"><small>Wishlist</small></h2>
+      </div>
+    </div>
+    
+    <div class="row row-12 items-grid">
+      
+      <div class="col-md-4 col-xs-6" ng-repeat="product in ctrl.wishlist.items">
+        <div class="product-item">
+          <div class="product-img">
+            <a ui-sref="productDetails({slug:product.slug})">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[1].thumbnailUrl}}" alt="{{product.name}}" class="back-img">
+              <img ng-if="product.images.length == 1"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
+            </a>
+            <div class="product-label">
+              <!-- <span class="sale">sale</span> -->
+            </div>
+            <div class="product-actions">
+              <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: ctrl.products.limit})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
+                <i class="fa fa-camera"></i>
+              </a>
+              <a href=""
+                 ng-click="ctrl.addToWishlist(ctrl.getCode(product.variants))" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
+                <i class="fa fa-heart"></i>
+              </a>
+            </div>
+          </div>
+          <div class="product-details">
+            <h3>
+              <a class="product-title" ui-sref="productDetails({slug:product.slug})">{{product.name}}</a>
+            </h3>
+            <span class="price">
+              <ins>
+                <span class="ammount"
+                      ng-repeat="(var, val) in product.variants">
+                  <i ng-if="$index===0">
+                    {{val.price.current/100 | currency: val.price.currency+" "}}
+                  </i>
+                </span>
+              </ins>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+    </div> <!-- end row -->
+
+  </div>
+</section> <!-- end shortcodes -->

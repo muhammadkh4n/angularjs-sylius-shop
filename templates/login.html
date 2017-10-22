@@ -77,6 +77,16 @@
               <input type="number" class="input-text" placeholder="" value="" ng-model="ctrl.user.phoneNumber" >
             </p>
             <p class="form-row form-row-wide">
+              <label>
+                Age
+                <abbr class="required" title="required">*</abbr>
+              </label>
+              <input type="date" class="input-text" placeholder="" value="" ng-model="ctrl.user.birthday" required>
+              <div class="" ng-if="ctrl.errors.birthday" >
+                <p ng-repeat="err in ctrl.errors.birthday" >{{ err }}</p>
+              </div>
+            </p>
+            <p class="form-row form-row-wide">
               <label>password (atleast 4 characters)
                 <abbr class="required" title="required">*</abbr>
               </label>

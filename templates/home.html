@@ -4,35 +4,42 @@
 
     <div class="row heading-row">
       <div class="col-md-12 text-center">
-        <h2 class="heading uppercase"><small>New Arrivals</small></h2>
+        <h2 class="heading uppercase"><small>Featured</small></h2>
       </div>
     </div>
 
     <div class="row row-10">              
 
-      <div class="col-md-3 col-xs-6">
+      <div class="col-md-3 col-xs-6" ng-repeat="product in ctrl.recommended1">
         <div class="product-item">
           <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_1.jpg" alt="">
-              <img src="img/shop/shop_item_1_back.jpg" alt="" class="back-img">
+            <a ui-sref="productDetails({slug:product.slug})">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[1].thumbnailUrl}}" alt="{{product.name}}" class="back-img">
+              <img ng-if="product.images.length == 1"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
             </a>
             <div class="product-label">
               <span class="sale">sale</span>
             </div>
             <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
+              <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
+                <i class="fa fa-camera"></i>
               </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
+              <a href="" ng-if="ctrl.loggedIn"
+                 ng-click="ctrl.addToWishlist(ctrl.getCode(product.variants), $index)" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
                 <i class="fa fa-heart"></i>
-              </a>                    
+              </a>
             </div>
-            <a href="#" class="product-quickview">Quick View</a>
           </div>
           <div class="product-details">
             <h3>
-              <a class="product-title" href="shop-single-product.html">Night Party Dress</a>
+              <a class="product-title"
+                 ui-sref="productDetails({slug:product.slug})">
+                {{product.brandName}} {{product.name}}
+              </a>
             </h3>
             <span class="price">
               <del>
@@ -42,101 +49,13 @@
                 <span class="ammount">$159.99</span>
               </ins>
             </span>
+            <p class="wish-added-success" ng-if="ctrl.success === $index">
+              Added to wishlist
+            </p>
           </div>
         </div>
       </div>
-
-      <div class="col-md-3 col-xs-6">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_2.jpg" alt="">
-              <img src="img/shop/shop_item_2_back.jpg" alt="" class="back-img">
-            </a>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
-              </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Elegant White Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$219.00</span>
-              </ins>
-            </span>
-          </div>                          
-        </div>
-      </div>
-
-      <div class="col-md-3 col-xs-6">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_3.jpg" alt="">
-              <img src="img/shop/shop_item_3_back.jpg" alt="" class="back-img">
-            </a>
-            <span class="sold-out valign">out of stock</span>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
-              </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Long Black Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$99.00</span>
-              </ins>
-            </span>
-          </div>                        
-        </div>
-      </div>
-
-      <div class="col-md-3 col-xs-6">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_4.jpg" alt="">
-              <img src="img/shop/shop_item_4_back.jpg" alt="" class="back-img">
-            </a>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
-              </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Sexy Pink Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$120.00</span>
-              </ins>
-            </span>
-          </div>                        
-        </div>
-      </div>            
-
+      
     </div> <!-- end row -->
   </div>
 </section> <!-- end new arrivals -->
@@ -162,132 +81,43 @@
 
     <div class="row heading-row">
       <div class="col-md-12 text-center">
-        <h2 class="heading uppercase"><small>Best Sellers</small></h2>
+        <h2 class="heading uppercase"><small>Recommendations</small></h2>
       </div>
     </div>
 
     <div class="row row-10">              
 
-      <div class="col-md-3 col-xs-6 animated-from-left">
+      <div class="col-md-3 col-xs-6 animated-from-left" ng-repeat="product in ctrl.recommended2">
         <div class="product-item">
           <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_5.jpg" alt="">
-              <img src="img/shop/shop_item_5_back.jpg" alt="" class="back-img">
-            </a>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
-              </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Minty Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$399.00</span>
-              </ins>
-            </span>
-          </div>                          
-        </div>
-      </div>
-
-      <div class="col-md-3 col-xs-6 animated-from-left">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_6.jpg" alt="">
-              <img src="img/shop/shop_item_6_back.jpg" alt="" class="back-img">
+            <a ui-sref="productDetails({slug:product.slug})">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
+              <img ng-if="product.images.length >= 2"
+                   ng-src="{{product.images[1].thumbnailUrl}}" alt="{{product.name}}" class="back-img">
+              <img ng-if="product.images.length == 1"
+                   ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
             </a>
             <div class="product-label">
               <span class="sale">sale</span>
             </div>
             <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
+              <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
+                <i class="fa fa-camera"></i>
               </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
+              <a href="" ng-if="ctrl.loggedIn"
+                 ng-click="ctrl.addToWishlist(ctrl.getCode(product.variants))" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
                 <i class="fa fa-heart"></i>
-              </a>                    
+              </a>
             </div>
-            <a href="#" class="product-quickview">Quick View</a>
           </div>
 
           <div class="product-details">
             <h3>
-              <a class="product-title" href="shop-single-product.html">Sexy White Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$119.00</span>
-              </ins>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-xs-6 animated-from-left">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_7.jpg" alt="">
-              <img src="img/shop/shop_item_7_back.jpg" alt="" class="back-img">
-            </a>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
+              <a class="product-title"
+                 ui-sref="productDetails({slug:product.slug})">
+                {{product.brandName}} {{product.name}}
               </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Elegant Pink Dress</a>
-            </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount">$1379.00</span>
-              </ins>
-            </span>
-          </div>              
-        </div>
-      </div>
-
-      <div class="col-md-3 col-xs-6 animated-from-left">
-        <div class="product-item">
-          <div class="product-img">
-            <a href="#">
-              <img src="img/shop/shop_item_8.jpg" alt="">
-              <img src="img/shop/shop_item_8_back.jpg" alt="" class="back-img">
-            </a>
-            <div class="product-label">
-              <span class="sale">sale</span>
-            </div>
-            <div class="product-actions">
-              <a href="#" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Add to compare">
-                <i class="fa fa-exchange"></i>
-              </a>
-              <a href="#" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a>                    
-            </div>
-            <a href="#" class="product-quickview">Quick View</a>
-          </div>
-
-          <div class="product-details">
-            <h3>
-              <a class="product-title" href="shop-single-product.html">Gray California Dress</a>
             </h3>
             <span class="price">
               <del>
@@ -305,57 +135,3 @@
     </div> <!-- end row -->
   </div>
 </section> <!-- end best sellers -->            
-
-<!-- Partners -->
-<section class="section-wrap partners pt-0 pb-50">
-  <div class="container">
-    <div class="row">
-
-      <div id="owl-partners" class="owl-carousel owl-theme">
-
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_1.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_2.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_3.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_4.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_5.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_6.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_1.png" alt="">
-          </a>
-        </div>
-        <div class="item">
-          <a href="#">
-            <img src="img/partners/partner_logo_dark_2.png" alt="">
-          </a>
-        </div>
-
-      </div> <!-- end carousel -->
-      
-    </div>
-  </div>
-</section> <!-- end partners -->

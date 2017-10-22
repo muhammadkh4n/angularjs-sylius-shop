@@ -68,11 +68,13 @@
         var em = errors.children.email.errors;
         var fn = errors.children.firstName.errors;
         var ln = errors.children.lastName.errors;
+        var dob = errors.children.birthday.errors;
         var p1 = errors.children.user.children.plainPassword.children.first.errors;
         var p2 = errors.children.user.children.plainPassword.children.second.errors;
         if (em) err.email = em;
         if (fn) err.firstName = fn;
         if (ln) err.lastName = ln;
+        if (dob) err.birthday = dob;
         if (p1) err.password = p1;
         if (p2) err.confirmPassword = p2;
       }

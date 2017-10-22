@@ -44,7 +44,7 @@
       </div> <!-- end col img slider -->
 
       <div class="col-sm-6 col-xs-12 product-description-wrap">
-        <h1 class="product-title">{{ctrl.product.name}}</h1>
+        <h1 class="product-title">{{ctrl.product.brandName}}<br>{{ctrl.product.name}}</h1>
         <span class="price">
           <ins>
             <span class="ammount" ng-if="!item.variantCode">
@@ -96,8 +96,8 @@
             <a ng-click="ctrl.addItemToCart()" class="btn btn-color btn-lg add-to-cart left"><span>Add to Cart</span></a>
           </li>                
           <li>
-            <div class="icon-add-to-wishlist left">
-              <a href="#"><i class="icon icon_heart_alt"></i></a>
+            <div class="icon-add-to-wishlist left" ng-if="ctrl.loggedIn">
+              <a ng-click="ctrl.addToWishlist(ctrl.getCode(ctrl.product.variants))"><i class="icon icon_heart_alt"></i></a>
             </div>
           </li> 
           <li>

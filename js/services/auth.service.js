@@ -36,14 +36,6 @@
       return $http.post(CONFIG.apiUrl + '/shop-api/login/check', user, {headers: headers});
     };
 
-    this.getProfile = function () {
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+this.getToken()
-      };
-      return $http.get(CONFIG.apiUrl+'/shop-api/account', {headers: headers});
-    };
-
     this.storeAuth = function (auth) {
       localStorage.setItem('token', auth.token);
       localStorage.setItem('refresh_token', auth.refresh_token);

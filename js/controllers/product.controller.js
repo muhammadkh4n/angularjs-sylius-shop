@@ -4,14 +4,17 @@
   angular.module('aha')
     .controller('ProductController', ProductController);
 
-  ProductController.$inject = ['$state', '$rootScope', '$stateParams', 'product', 'Product', 'Cart', '$scope', 'Auth', 'Product'];
-  function ProductController($state, $rootScope, $stateParams, product, ProductService, Cart, $scope, Auth, Product) {
+  ProductController.$inject = ['$state', '$rootScope', '$stateParams', 'product', 'Product', 'Cart', '$scope', 'Auth', 'Product', 'Profile'];
+  function ProductController($state, $rootScope, $stateParams, product, ProductService, Cart, $scope, Auth, Product, Profile) {
     var ctrl = this;
     var category = {};
     ctrl.decQuantity = decQuantity;
     ctrl.incQuantity = incQuantity;
     ctrl.addItemToCart  = addItemToCart;
     ctrl.setActiveImage = setActiveImage;
+    ctrl.getCode = getCode;
+    ctrl.addToWishlist = addToWishlist;
+    ctrl.loggedIn = Auth.loggedIn();
 
     activate();
     return;
@@ -100,5 +103,24 @@
           console.log(err.data);
         });
     }
+
+    function addToWishlist(variantCode) {
+      var variant = {
+        productVariantCode: variantCode
+      };
+      Profile.addToWishlist(variant)
+        .then(function(res) {
+          $scope.success = "Added to your wishlist";
+          console.log(res.data);
+        })
+        .catch(function(err) {
+          console.log("WISHLIST ADD ERR", err.data);
+        });
+    }
+
+    function getCode(variants) {
+      return Object.keys(variants)[0];
+    }
+
   }
 })();

@@ -4,8 +4,8 @@
   angular.module('aha')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product', 'Cart', '$stateParams'];
-  function HeaderController($scope, Auth, $state, $rootScope, $location, Product, Cart, $stateParams) {
+  HeaderController.$inject = ['$scope', 'Auth', '$state', '$rootScope', '$location', 'Product', 'Cart', '$stateParams', 'Profile'];
+  function HeaderController($scope, Auth, $state, $rootScope, $location, Product, Cart, $stateParams, Profile) {
     var ctrl = this;
     ctrl.logout = logout;
     ctrl.user = null;
@@ -34,6 +34,9 @@
 
     function activate() {
       getCategories();
+      if (Auth.loggedIn()) {
+        getProfile();
+      }
       ctrl.show = false;
       ctrl.lang = JSON.parse(localStorage.lang).lang;
     }
@@ -51,15 +54,26 @@
     }
 
     function getProfile() {
-      Auth.getProfile()
+      Profile.getAccount()
         .then(function(resp) {
           ctrl.user = resp.data;
           Auth.storeUser(resp.data);
           getCartItems(ctrl.user.email);
-          console.log(resp.data);
+          console.log("PROFILE", resp.data);
         })
         .catch(function(err) {
           console.log(err.data);
+        });
+      Profile.getWishlists()
+        .then(function(res) {
+          if (!res.data.length) {
+            Profile.createWishlist();
+          } else {
+            console.log("WISHLISTS", res.data);
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
         });
     }
 
@@ -78,7 +92,7 @@
       Product.getTaxon('category')
         .then(function(res) {
           ctrl.categories = res.data.self.children;
-          console.log(ctrl.categories);
+          console.log("CATEGORIES", ctrl.categories);
         })
         .catch(function(err) {
           console.log(err.data);

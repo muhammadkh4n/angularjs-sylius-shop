@@ -10,7 +10,19 @@
     var home = {
       name: 'home',
       url: '/',
-      templateUrl: 'templates/home.html'
+      templateUrl: 'templates/home.html',
+      controller: 'HomeController as ctrl',
+      resolve: {
+        recommended: ['Auth', 'Recommend', '$rootScope',
+                      function(Auth, Recommend, $rootScope) {
+                        $rootScope.$broadcast('loading-start');
+                        if (Auth.loggedIn()) {
+                          return Recommend.getUserRecommended();
+                        } else {
+                          return Recommend.getRecommended();
+                        }
+                      }]
+      }
     };
     var productsBySlug = {
       name: 'productsBySlug',
@@ -69,6 +81,27 @@
       },
       controller: 'ProductController as ctrl'
     };
+    var account = {
+      name: 'account',
+      url: '/account',
+      templateUrl: 'templates/account.html',
+      controller: 'ProfileController as ctrl',
+      resolve: {
+        account: ['Profile', '$rootScope', function(Profile, $rootScope) {
+          $rootScope.$broadcast('loading-start');
+          return Profile.getAccount();
+        }],
+        wishlists: ['Profile', '$rootScope', function(Profile, $rootScope) {
+          return Profile.getWishlists();
+        }],
+        brands: ['Product', '$rootScope', function(Product, $rootScope) {
+          return Product.getTaxon('brand');
+        }],
+        favorites: ['Profile', function(Profile) {
+          return Profile.getFavoriteBrands();
+        }]
+      }
+    }
     var cart = {
       name: 'cart',
       url: '/cart',
@@ -115,6 +148,7 @@
       .state(productsByImage)
       .state(productDetails)
       .state(productsSimilar)
+      .state(account)
       .state(cart)
       .state(checkout)
       .state(about)
