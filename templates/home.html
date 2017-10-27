@@ -22,7 +22,9 @@
                    ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
             </a>
             <div class="product-label">
-              <span class="sale">sale</span>
+              <span class="sale" ng-repeat="(var, val) in product.variants">
+                <i ng-if="$index===0">{{val.price.discount/100 | currency: val.price.currency+" "}} OFF</i>
+              </span>
             </div>
             <div class="product-actions">
               <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
@@ -43,10 +45,17 @@
             </h3>
             <span class="price">
               <del>
-                <span>$388.00</span>
+                <span ng-repeat="(var, val) in product.variants">
+                  <i ng-if="$index===0">{{val.price.msrp/100 | currency: val.price.currency+" "}}</i>
+                </span>
               </del>
               <ins>
-                <span class="ammount">$159.99</span>
+                <span class="ammount"
+                      ng-repeat="(var, val) in product.variants">
+                  <i ng-if="$index===0">
+                    {{val.price.current/100 | currency: val.price.currency+" "}}
+                  </i>
+                </span>
               </ins>
             </span>
             <p class="wish-added-success" ng-if="ctrl.success === $index">
@@ -99,7 +108,9 @@
                    ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
             </a>
             <div class="product-label">
-              <span class="sale">sale</span>
+              <span class="sale" ng-repeat="(var, val) in product.variants">
+                <i ng-if="$index===0">{{val.price.discount/100 | currency: val.price.currency+" "}} OFF</i>
+              </span>
             </div>
             <div class="product-actions">
               <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
@@ -121,10 +132,17 @@
             </h3>
             <span class="price">
               <del>
-                <span>$350.00</span>
+                <span ng-repeat="(var, val) in product.variants">
+                  <i ng-if="$index===0">{{val.price.msrp/100 | currency: val.price.currency+" "}}</i>
+                </span>
               </del>
               <ins>
-                <span class="ammount">$150.00</span>
+                <span class="ammount"
+                      ng-repeat="(var, val) in product.variants">
+                  <i ng-if="$index===0">
+                    {{val.price.current/100 | currency: val.price.currency+" "}}
+                  </i>
+                </span>
               </ins>
             </span>
           </div>                  

@@ -44,7 +44,12 @@
       </div> <!-- end col img slider -->
 
       <div class="col-sm-6 col-xs-12 product-description-wrap">
-        <h1 class="product-title">{{ctrl.product.brandName}}<br>{{ctrl.product.name}}</h1>
+        <h1 class="product-title">{{ctrl.product.brandName}}<br>{{ctrl.product.name}} <span></h1>
+        <div class="product-label">
+          <span class="sale" ng-repeat="(var, val) in ctrl.product.variants">
+            <i ng-if="$index===0">{{val.price.discount/100 | currency: val.price.currency+" "}} OFF</i>
+          </span>
+        </div>
         <span class="price">
           <ins>
             <span class="ammount" ng-if="!item.variantCode">
@@ -54,6 +59,14 @@
               {{ctrl.product.variants[item.variantCode].price.current/100 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
             </span>
           </ins>
+          <del>
+            <span class="ammount" ng-if="!item.variantCode">
+              {{ctrl.product.variants[ctrl.variantKeys[0]].price.msrp/100 | currency: ctrl.product.variants[ctrl.variantKeys[0]].price.currency+' '}}
+            </span>
+            <span class="ammount" ng-if="item.variantCode">
+              {{ctrl.product.variants[item.variantCode].price.msrp/100 | currency: ctrl.product.variants[item.variantCode].price.currency+' '}}
+            </span>
+          </del>
         </span>
         <p class="product-description" ng-bind-html="ctrl.product.description"></p>
         <div class="row">

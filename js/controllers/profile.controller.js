@@ -42,6 +42,7 @@
         .then(function(res) {
           console.log("FAVORITE ADDED", res.data);
           ctrl.favorites.push(ctrl.selectedBrand);
+          ctrl.noFavorites = false;
         })
         .catch(function(err) {
           console.log("FAVORITE ADD ERR", err.data);
@@ -53,6 +54,9 @@
         .then(function(res) {
           console.log("BRAND DELETED", res.data);
           ctrl.favorites.splice(index, 1);
+          if (ctrl.favorites.length === 0) {
+            ctrl.noFavorites = true;
+          }
         })
         .catch(function(err) {
           console.log("BRAND DELETE ERR", err.data);
