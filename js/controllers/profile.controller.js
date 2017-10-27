@@ -11,7 +11,6 @@
     ctrl.wishlist = wishlists.data[0];
     ctrl.favorites = favorites.data;
     ctrl.brands = brands.data;
-    ctrl.noFavorites = false;
     ctrl.selectedBrand = null;
     ctrl.selectBrand = selectBrand;
     ctrl.addToFavorites = addToFavorites;
@@ -24,9 +23,6 @@
     //////////////////////////////////////////
     
     function activate() {
-      if (ctrl.favorites.length === 0) {
-        ctrl.noFavorites = true;
-      }
       console.log("BRANDS", ctrl.brands);
       console.log("FAVORITES", ctrl.favorites);
     }
@@ -44,7 +40,6 @@
         .then(function(res) {
           console.log("FAVORITE ADDED", res.data);
           ctrl.favorites.push(ctrl.selectedBrand);
-          ctrl.noFavorites = false;
         })
         .catch(function(err) {
           console.log("FAVORITE ADD ERR", err.data);
@@ -67,9 +62,6 @@
         .then(function(res) {
           console.log("BRAND DELETED", res.data);
           ctrl.favorites.splice(index, 1);
-          if (ctrl.favorites.length === 0) {
-            ctrl.noFavorites = true;
-          }
         })
         .catch(function(err) {
           console.log("BRAND DELETE ERR", err.data);
