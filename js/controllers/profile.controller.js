@@ -16,6 +16,8 @@
     ctrl.selectBrand = selectBrand;
     ctrl.addToFavorites = addToFavorites;
     ctrl.removeFavorite = removeFavorite;
+    ctrl.getCode = getCode;
+    ctrl.deleteFromWishlist = deleteFromWishlist;
 
     activate();
     return;
@@ -49,6 +51,17 @@
         });
     }
 
+    function deleteFromWishlist(code, index) {
+      Profile.removeFromWishlist(ctrl.wishlist.id, code)
+        .then(function (res) {
+          console.log("ITEM DELETED");
+          ctrl.wishlist.items.splice(index, 1);
+        })
+        .catch(function (err) {
+          console.log("ERR DELETE ITEM", err.data);
+        })
+    }
+
     function removeFavorite(fav, index) {
       Profile.removeFavoriteBrand(fav.code)
         .then(function(res) {
@@ -61,6 +74,10 @@
         .catch(function(err) {
           console.log("BRAND DELETE ERR", err.data);
         });
+    }
+
+    function getCode(variants) {
+      return Object.keys(variants)[0];
     }
   }
 })();

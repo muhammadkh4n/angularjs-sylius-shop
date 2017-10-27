@@ -27,9 +27,9 @@
     </div>
 
     <div class="row row-12 items-grid">
-      <p class="alert alert-warning col-xs-8" ng-if="ctrl.noFavorites">
+      <h2 class="alert alert-warning col-xs-8 text-center" ng-if="ctrl.favorites.length === 0">
         Currently no favorite brands. Please add some
-      </p>
+      </h2>
       <div class="col-xs-12 col-md-8" ng-if="!ctrl.noFavorites">
         <div class="row">
           <div class="col-xs-6 col-sm-3 col-lg-2 favorite" ng-repeat="fav in ctrl.favorites">
@@ -65,8 +65,10 @@
     </div>
     
     <div class="row row-12 items-grid">
-      
-      <div class="col-md-4 col-xs-6" ng-repeat="product in ctrl.wishlist.items">
+      <h2 class="alert alert-warning col-xs-12 text-center" ng-if="ctrl.wishlist.items.length === 0">
+        Wishlist is empty, Browse Store and add some <i class="fa fa-smile-o"></i>
+      </h2>
+      <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="product in ctrl.wishlist.items">
         <div class="product-item">
           <div class="product-img">
             <a ui-sref="productDetails({slug:product.slug})">
@@ -84,10 +86,10 @@
               <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
                 <i class="fa fa-camera"></i>
               </a>
-              <!-- <a href=""
-                 ng-click="ctrl.addToWishlist(ctrl.getCode(product.variants))" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Add to wishlist">
-                <i class="fa fa-heart"></i>
-              </a> -->
+              <a href=""
+                 ng-click="ctrl.deleteFromWishlist(ctrl.getCode(product.variants), $index)" class="product-add-to-wishlist" data-toggle="tooltip" data-placement="bottom" title="Delete from Wishlist">
+                <i class="fa fa-trash"></i>
+              </a>
             </div>
           </div>
           <div class="product-details">

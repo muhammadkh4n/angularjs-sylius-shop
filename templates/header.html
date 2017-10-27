@@ -9,7 +9,7 @@
             <ul class="col-sm-6 top-bar-acc">
               <li class="top-bar-link" ng-if="$ctrl.loggedIn()"><a ui-sref="account">My Account ({{$ctrl.user.firstName}})</a></li>
               <li class="top-bar-link" ng-if="$ctrl.loggedIn()"><a href="#" ng-click="$ctrl.logout()">Log out</a></li>
-              <li class="top-bar-link" ng-if="$ctrl.loggedIn()"><a href="#">My Wishlist</a></li>
+              <!-- <li class="top-bar-link" ng-if="$ctrl.loggedIn()"><a href="#">My Wishlist</a></li> -->
               <li class="top-bar-link"><a href="#">Newsletter</a></li>
               <li class="top-bar-link" ng-if="!$ctrl.loggedIn()"><a ui-sref="login">Login</a></li>
               <li class="top-bar-link"><a ui-sref="contact">Contact</a></li>
@@ -226,11 +226,11 @@
                       <a ui-sref="login">Login</a>
                     </li>
                     <li ng-if="$ctrl.loggedIn()">
-                      <a href="#">My Account</a>
+                      <a ui-sref="account">My Account</a>
                     </li>
-                    <li ng-if="$ctrl.loggedIn()">
+                    <!-- <li ng-if="$ctrl.loggedIn()">
                       <a href="#">My Wishlist</a>
-                    </li>
+                    </li> -->
                   </ul>
                 </li>
                 
