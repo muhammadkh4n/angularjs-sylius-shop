@@ -150,6 +150,13 @@ li.brand {
     margin-bottom: 5px;
 }
 
+.product-label span.sale {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    letter-spacing: 0.05em;
+}
+
 @media (max-width: 991px) {
     .cropArea {
         width: 100vw;

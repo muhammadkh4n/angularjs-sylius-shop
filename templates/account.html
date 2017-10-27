@@ -78,9 +78,7 @@
                    ng-src="{{product.images[0].thumbnailUrl}}" alt="{{product.name}}">
             </a>
             <div class="product-label">
-              <span class="sale" ng-repeat="(var, val) in product.variants">
-                <i ng-if="$index===0">{{val.price.discount/100 | currency: val.price.currency+" "}} OFF</i>
-              </span>
+              <price variants="product.variants" discount></price>
             </div>
             <div class="product-actions">
               <a ui-sref="productsSimilar({slug: product.slug, page: 1, limit: 12})" class="product-add-to-compare" data-toggle="tooltip" data-placement="bottom" title="Search by Image">
@@ -96,16 +94,7 @@
             <h3>
               <a class="product-title" ui-sref="productDetails({slug:product.slug})">{{product.name}}</a>
             </h3>
-            <span class="price">
-              <ins>
-                <span class="ammount"
-                      ng-repeat="(var, val) in product.variants">
-                  <i ng-if="$index===0">
-                    {{val.price.current/100 | currency: val.price.currency+" "}}
-                  </i>
-                </span>
-              </ins>
-            </span>
+            <price variants="product.variants" price></price>
           </div>
         </div>
       </div>

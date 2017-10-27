@@ -1,0 +1,16 @@
+<span class="price" ng-if="$ctrl.isPrice">
+  <del>
+    <span>
+      {{$ctrl.variant.price.msrp/100 | currency: $ctrl.variant.price.currency+" "}}
+    </span>
+  </del>
+  <ins>
+    <span class="ammount">
+        {{$ctrl.variant.price.current/100 | currency: $ctrl.variant.price.currency+" "}}
+    </span>
+  </ins>
+</span>
+
+<span class="sale" ng-if="$ctrl.isDiscount">
+  {{$ctrl.variant.price.discount}}% OFF
+</span>
